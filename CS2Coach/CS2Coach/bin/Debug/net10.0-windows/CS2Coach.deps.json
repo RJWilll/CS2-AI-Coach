@@ -8,14 +8,29 @@
     ".NETCoreApp,Version=v10.0": {
       "CS2Coach/1.0.0": {
         "dependencies": {
+          "Anthropic.SDK": "5.10.0",
           "CounterStrike2GSI": "1.0.4.2659",
           "Microsoft.Web.WebView2": "1.0.3967.48",
+          "OpenCvSharp4": "4.13.0.20260427",
+          "OpenCvSharp4.runtime.win": "4.13.0.20260302",
           "Microsoft.Web.WebView2.Core": "1.0.3967.48",
           "Microsoft.Web.WebView2.WinForms": "1.0.3967.48",
           "Microsoft.Web.WebView2.Wpf": "1.0.3967.48"
         },
         "runtime": {
           "CS2Coach.dll": {}
+        }
+      },
+      "Anthropic.SDK/5.10.0": {
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
+          "Microsoft.Extensions.AI.Abstractions": "10.3.0"
+        },
+        "runtime": {
+          "lib/net10.0/Anthropic.SDK.dll": {
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.10.0.0"
+          }
         }
       },
       "CounterStrike2GSI/1.0.4.2659": {
@@ -26,6 +41,22 @@
           "lib/net8.0/CounterStrike2GSI.dll": {
             "assemblyVersion": "1.0.4.2659",
             "fileVersion": "1.0.4.2659"
+          }
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "assemblyVersion": "10.0.0.3",
+            "fileVersion": "10.0.326.7603"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.3.0": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "assemblyVersion": "10.3.0.0",
+            "fileVersion": "10.300.26.10911"
           }
         }
       },
@@ -53,6 +84,28 @@
           "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
             "fileVersion": "13.0.3.27908"
+          }
+        }
+      },
+      "OpenCvSharp4/4.13.0.20260427": {
+        "runtime": {
+          "lib/net8.0/OpenCvSharp.dll": {
+            "assemblyVersion": "4.13.0.0",
+            "fileVersion": "4.13.0.0"
+          }
+        }
+      },
+      "OpenCvSharp4.runtime.win/4.13.0.20260302": {
+        "runtimeTargets": {
+          "runtimes/win-x64/native/OpenCvSharpExtern.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/opencv_videoio_ffmpeg4130_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2025.12.0.0"
           }
         }
       },
@@ -88,12 +141,33 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Anthropic.SDK/5.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UQyZsDMcFy5pBNfEQXwNS5916dogqKSO76J4aynmdtR2q0QB3Ey/vB3vwll9/neAmH7IpKH7KpbzQ+SaYncxyQ==",
+      "path": "anthropic.sdk/5.10.0",
+      "hashPath": "anthropic.sdk.5.10.0.nupkg.sha512"
+    },
     "CounterStrike2GSI/1.0.4.2659": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-QF5MlGR1VEUp1nYMbbdxKz+m/0jsLzOx9JN16NeJzxcCzoaWAA1nWIdsXFt0/IUeBOEyENtjUmmfEps+kR5BXw==",
       "path": "counterstrike2gsi/1.0.4.2659",
       "hashPath": "counterstrike2gsi.1.0.4.2659.nupkg.sha512"
+    },
+    "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TV62UsrJZPX6gbt3c4WrtXh7bmaDIcMqf9uft1cc4L6gJXOU07hDGEh+bFQh/L2Az0R1WVOkiT66lFqS6G2NmA==",
+      "path": "microsoft.bcl.asyncinterfaces/10.0.3",
+      "hashPath": "microsoft.bcl.asyncinterfaces.10.0.3.nupkg.sha512"
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hDjDvUERvUH3HBMs2MDusOcGJBjAHOG5pJIU2x/HZEa4e1UthNKt89cwMi3B+ogJo6skki1XFjfgGN3ksnVqvQ==",
+      "path": "microsoft.extensions.ai.abstractions/10.3.0",
+      "hashPath": "microsoft.extensions.ai.abstractions.10.3.0.nupkg.sha512"
     },
     "Microsoft.Web.WebView2/1.0.3967.48": {
       "type": "package",
@@ -108,6 +182,20 @@
       "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
+    "OpenCvSharp4/4.13.0.20260427": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2+bL0ID2B+IgGzSJjQ2OB8OW31asDSpweHKH3BPZajuG1Q9Yhg7yCZ9pdC/SHlytIOfGAhRFokbnuCVVwUoMWA==",
+      "path": "opencvsharp4/4.13.0.20260427",
+      "hashPath": "opencvsharp4.4.13.0.20260427.nupkg.sha512"
+    },
+    "OpenCvSharp4.runtime.win/4.13.0.20260302": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VC2n9CVZQvAm+p0NXW077e/MGkDBraT3ye4FdInRPpxTVK64DwGnLuIncS8mwrkVcKhqh82/KgcDgKXNWDndAA==",
+      "path": "opencvsharp4.runtime.win/4.13.0.20260302",
+      "hashPath": "opencvsharp4.runtime.win.4.13.0.20260302.nupkg.sha512"
     },
     "Microsoft.Web.WebView2.Core/1.0.3967.48": {
       "type": "reference",

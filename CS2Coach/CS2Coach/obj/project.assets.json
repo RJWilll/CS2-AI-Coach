@@ -1,7 +1,24 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
-    "net10.0-windows7.0": {
+    "net10.0-windows": {
+      "Anthropic.SDK/5.10.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
+          "Microsoft.Extensions.AI.Abstractions": "10.3.0"
+        },
+        "compile": {
+          "lib/net10.0/Anthropic.SDK.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Anthropic.SDK.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "CounterStrike2GSI/1.0.4.2659": {
         "type": "package",
         "dependencies": {
@@ -15,6 +32,32 @@
         },
         "runtime": {
           "lib/net8.0/CounterStrike2GSI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
             "related": ".xml"
           }
         }
@@ -52,6 +95,35 @@
           }
         }
       },
+      "OpenCvSharp4/4.13.0.20260427": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/OpenCvSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/OpenCvSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "OpenCvSharp4.runtime.win/4.13.0.20260302": {
+        "type": "package",
+        "build": {
+          "build/net8.0/OpenCvSharp4.runtime.win.props": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win-x64/native/OpenCvSharpExtern.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/opencv_videoio_ffmpeg4130_64.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      },
       "System.Data.DataSetExtensions/4.5.0": {
         "type": "package",
         "compile": {
@@ -64,6 +136,25 @@
     }
   },
   "libraries": {
+    "Anthropic.SDK/5.10.0": {
+      "sha512": "UQyZsDMcFy5pBNfEQXwNS5916dogqKSO76J4aynmdtR2q0QB3Ey/vB3vwll9/neAmH7IpKH7KpbzQ+SaYncxyQ==",
+      "type": "package",
+      "path": "anthropic.sdk/5.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "anthropic.sdk.5.10.0.nupkg.sha512",
+        "anthropic.sdk.nuspec",
+        "icon.png",
+        "lib/net10.0/Anthropic.SDK.dll",
+        "lib/net10.0/Anthropic.SDK.xml",
+        "lib/net8.0/Anthropic.SDK.dll",
+        "lib/net8.0/Anthropic.SDK.xml",
+        "lib/netstandard2.0/Anthropic.SDK.dll",
+        "lib/netstandard2.0/Anthropic.SDK.xml"
+      ]
+    },
     "CounterStrike2GSI/1.0.4.2659": {
       "sha512": "QF5MlGR1VEUp1nYMbbdxKz+m/0jsLzOx9JN16NeJzxcCzoaWAA1nWIdsXFt0/IUeBOEyENtjUmmfEps+kR5BXw==",
       "type": "package",
@@ -76,6 +167,52 @@
         "counterstrike2gsi.nuspec",
         "lib/net8.0/CounterStrike2GSI.dll",
         "lib/net8.0/CounterStrike2GSI.xml"
+      ]
+    },
+    "Microsoft.Bcl.AsyncInterfaces/10.0.3": {
+      "sha512": "TV62UsrJZPX6gbt3c4WrtXh7bmaDIcMqf9uft1cc4L6gJXOU07hDGEh+bFQh/L2Az0R1WVOkiT66lFqS6G2NmA==",
+      "type": "package",
+      "path": "microsoft.bcl.asyncinterfaces/10.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Bcl.AsyncInterfaces.targets",
+        "buildTransitive/net462/_._",
+        "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/net462/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.xml",
+        "microsoft.bcl.asyncinterfaces.10.0.3.nupkg.sha512",
+        "microsoft.bcl.asyncinterfaces.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.3.0": {
+      "sha512": "hDjDvUERvUH3HBMs2MDusOcGJBjAHOG5pJIU2x/HZEa4e1UthNKt89cwMi3B+ogJo6skki1XFjfgGN3ksnVqvQ==",
+      "type": "package",
+      "path": "microsoft.extensions.ai.abstractions/10.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "microsoft.extensions.ai.abstractions.10.3.0.nupkg.sha512",
+        "microsoft.extensions.ai.abstractions.nuspec"
       ]
     },
     "Microsoft.Web.WebView2/1.0.3967.48": {
@@ -205,6 +342,43 @@
         "packageIcon.png"
       ]
     },
+    "OpenCvSharp4/4.13.0.20260427": {
+      "sha512": "2+bL0ID2B+IgGzSJjQ2OB8OW31asDSpweHKH3BPZajuG1Q9Yhg7yCZ9pdC/SHlytIOfGAhRFokbnuCVVwUoMWA==",
+      "type": "package",
+      "path": "opencvsharp4/4.13.0.20260427",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.managed.md",
+        "lib/net8.0/OpenCvSharp.dll",
+        "lib/net8.0/OpenCvSharp.xml",
+        "lib/netstandard2.0/OpenCvSharp.dll",
+        "lib/netstandard2.0/OpenCvSharp.xml",
+        "lib/netstandard2.1/OpenCvSharp.dll",
+        "lib/netstandard2.1/OpenCvSharp.xml",
+        "opencvsharp.png",
+        "opencvsharp4.4.13.0.20260427.nupkg.sha512",
+        "opencvsharp4.nuspec"
+      ]
+    },
+    "OpenCvSharp4.runtime.win/4.13.0.20260302": {
+      "sha512": "VC2n9CVZQvAm+p0NXW077e/MGkDBraT3ye4FdInRPpxTVK64DwGnLuIncS8mwrkVcKhqh82/KgcDgKXNWDndAA==",
+      "type": "package",
+      "path": "opencvsharp4.runtime.win/4.13.0.20260302",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.runtime.md",
+        "build/net8.0/OpenCvSharp4.runtime.win.props",
+        "build/netcoreapp/OpenCvSharp4.runtime.win.props",
+        "build/netstandard/OpenCvSharp4.runtime.win.props",
+        "opencvsharp.png",
+        "opencvsharp4.runtime.win.4.13.0.20260302.nupkg.sha512",
+        "opencvsharp4.runtime.win.nuspec",
+        "runtimes/win-x64/native/OpenCvSharpExtern.dll",
+        "runtimes/win-x64/native/opencv_videoio_ffmpeg4130_64.dll"
+      ]
+    },
     "System.Data.DataSetExtensions/4.5.0": {
       "sha512": "221clPs1445HkTBZPL+K9sDBdJRB8UN8rgjO3ztB0CQ26z//fmJXtlsr6whGatscsKGBrhJl5bwJuKSA8mwFOw==",
       "type": "package",
@@ -226,9 +400,12 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net10.0-windows7.0": [
+    "net10.0-windows": [
+      "Anthropic.SDK >= 5.10.0",
       "CounterStrike2GSI >= 1.0.4.2659",
-      "Microsoft.Web.WebView2 >= 1.0.3967.48"
+      "Microsoft.Web.WebView2 >= 1.0.3967.48",
+      "OpenCvSharp4 >= 4.13.0.20260427",
+      "OpenCvSharp4.runtime.win >= 4.13.0.20260302"
     ]
   },
   "packageFolders": {
@@ -260,7 +437,7 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net10.0-windows7.0": {
+        "net10.0-windows": {
           "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
           "projectReferences": {}
@@ -276,13 +453,17 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
-      "net10.0-windows7.0": {
+      "net10.0-windows": {
         "framework": "net10.0-windows7.0",
         "targetAlias": "net10.0-windows",
         "dependencies": {
+          "Anthropic.SDK": {
+            "target": "Package",
+            "version": "[5.10.0, )"
+          },
           "CounterStrike2GSI": {
             "target": "Package",
             "version": "[1.0.4.2659, )"
@@ -290,6 +471,14 @@
           "Microsoft.Web.WebView2": {
             "target": "Package",
             "version": "[1.0.3967.48, )"
+          },
+          "OpenCvSharp4": {
+            "target": "Package",
+            "version": "[4.13.0.20260427, )"
+          },
+          "OpenCvSharp4.runtime.win": {
+            "target": "Package",
+            "version": "[4.13.0.20260302, )"
           }
         },
         "imports": [
@@ -311,7 +500,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

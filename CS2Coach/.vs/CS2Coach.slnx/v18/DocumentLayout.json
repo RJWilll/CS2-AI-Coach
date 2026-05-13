@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|c:\\users\\reedj\\random_git_repos\\cs2-ai-coach\\cs2coach\\cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|solutionrelative:cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D095D83F-7DB2-295C-303B-389ECCE9D16E}|CS2Coach\\CS2Coach.csproj|c:\\users\\reedj\\random_git_repos\\cs2-ai-coach\\cs2coach\\cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D095D83F-7DB2-295C-303B-389ECCE9D16E}|CS2Coach\\CS2Coach.csproj|solutionrelative:cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|c:\\users\\reedj\\random_git_repos\\cs2-ai-coach\\cs2coach\\cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{D095D83F-7DB2-295C-303B-389ECCE9D16E}|CS2Coach\\CS2Coach.csproj|c:\\users\\reedj\\random_git_repos\\cs2-ai-coach\\cs2coach\\cs2coach\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D095D83F-7DB2-295C-303B-389ECCE9D16E}|CS2Coach\\CS2Coach.csproj|solutionrelative:cs2coach\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|solutionrelative:cs2coach\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|c:\\users\\reedj\\random_git_repos\\cs2-ai-coach\\cs2coach\\cs2coach\\cs2coach.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B7F9371B-8E81-4BE1-980D-99F72ED486F7}|CS2Coach\\CS2Coach.csproj|solutionrelative:cs2coach\\cs2coach.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,19 +24,6 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CS2Coach",
-              "DocumentMoniker": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\CS2Coach.csproj",
-              "RelativeDocumentMoniker": "CS2Coach\\CS2Coach.csproj",
-              "ToolTip": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\CS2Coach.csproj",
-              "RelativeToolTip": "CS2Coach\\CS2Coach.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-13T03:16:16.547Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -51,28 +38,40 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Program.cs",
+              "RelativeDocumentMoniker": "CS2Coach\\Program.cs",
+              "ToolTip": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Program.cs",
+              "RelativeToolTip": "CS2Coach\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T04:02:44.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Form1.cs",
               "RelativeDocumentMoniker": "CS2Coach\\Form1.cs",
               "ToolTip": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Form1.cs",
               "RelativeToolTip": "CS2Coach\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwDEAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-13T03:11:26.997Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Form1.cs",
               "RelativeDocumentMoniker": "CS2Coach\\Form1.cs",
               "ToolTip": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\Form1.cs [Design]",
               "RelativeToolTip": "CS2Coach\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T03:06:08.705Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-05-13T03:06:08.705Z"
             }
           ]
         },
