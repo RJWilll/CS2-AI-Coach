@@ -108,6 +108,22 @@
           }
         }
       },
+      "OpenCvSharp4.Extensions/4.13.0.20260427": {
+        "type": "package",
+        "dependencies": {
+          "OpenCvSharp4": "4.13.0.20260427"
+        },
+        "compile": {
+          "lib/net8.0/OpenCvSharp.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/OpenCvSharp.Extensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "OpenCvSharp4.runtime.win/4.13.0.20260302": {
         "type": "package",
         "build": {
@@ -361,6 +377,25 @@
         "opencvsharp4.nuspec"
       ]
     },
+    "OpenCvSharp4.Extensions/4.13.0.20260427": {
+      "sha512": "CKZi67kxOT8S//3Da1hA0jLk5wLmW4jyut+UGf+/SSq6nI6zOes2i12WeqlUUFLMQqXKrKSrYqo3u/djKmJp0Q==",
+      "type": "package",
+      "path": "opencvsharp4.extensions/4.13.0.20260427",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.managed.md",
+        "lib/net8.0/OpenCvSharp.Extensions.dll",
+        "lib/net8.0/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.xml",
+        "opencvsharp.png",
+        "opencvsharp4.extensions.4.13.0.20260427.nupkg.sha512",
+        "opencvsharp4.extensions.nuspec"
+      ]
+    },
     "OpenCvSharp4.runtime.win/4.13.0.20260302": {
       "sha512": "VC2n9CVZQvAm+p0NXW077e/MGkDBraT3ye4FdInRPpxTVK64DwGnLuIncS8mwrkVcKhqh82/KgcDgKXNWDndAA==",
       "type": "package",
@@ -405,6 +440,7 @@
       "CounterStrike2GSI >= 1.0.4.2659",
       "Microsoft.Web.WebView2 >= 1.0.3967.48",
       "OpenCvSharp4 >= 4.13.0.20260427",
+      "OpenCvSharp4.Extensions >= 4.13.0.20260427",
       "OpenCvSharp4.runtime.win >= 4.13.0.20260302"
     ]
   },
@@ -473,6 +509,10 @@
             "version": "[1.0.3967.48, )"
           },
           "OpenCvSharp4": {
+            "target": "Package",
+            "version": "[4.13.0.20260427, )"
+          },
+          "OpenCvSharp4.Extensions": {
             "target": "Package",
             "version": "[4.13.0.20260427, )"
           },

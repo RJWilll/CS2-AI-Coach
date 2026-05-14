@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "74/FccCKBH8=",
+  "dgSpecHash": "GrF0OIiwHQ8=",
   "success": true,
   "projectFilePath": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\CS2Coach.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\reedj\\.nuget\\packages\\microsoft.web.webview2\\1.0.3967.48\\microsoft.web.webview2.1.0.3967.48.nupkg.sha512",
     "C:\\Users\\reedj\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\reedj\\.nuget\\packages\\opencvsharp4\\4.13.0.20260427\\opencvsharp4.4.13.0.20260427.nupkg.sha512",
+    "C:\\Users\\reedj\\.nuget\\packages\\opencvsharp4.extensions\\4.13.0.20260427\\opencvsharp4.extensions.4.13.0.20260427.nupkg.sha512",
     "C:\\Users\\reedj\\.nuget\\packages\\opencvsharp4.runtime.win\\4.13.0.20260302\\opencvsharp4.runtime.win.4.13.0.20260302.nupkg.sha512",
     "C:\\Users\\reedj\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
   ],

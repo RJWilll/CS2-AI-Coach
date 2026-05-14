@@ -68,6 +68,10 @@
               "target": "Package",
               "version": "[4.13.0.20260427, )"
             },
+            "OpenCvSharp4.Extensions": {
+              "target": "Package",
+              "version": "[4.13.0.20260427, )"
+            },
             "OpenCvSharp4.runtime.win": {
               "target": "Package",
               "version": "[4.13.0.20260302, )"

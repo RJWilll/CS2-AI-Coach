@@ -9,13 +9,12 @@ namespace CS2Coach
 
     public partial class Form1 : Form
     {
+        GSIReciever reciever;
         public Form1()
         {
             InitializeComponent();
-
+            reciever = new GSIReciever();
             this.Load += Form1_Load;
-            SetUpGSL();
-
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -26,32 +25,6 @@ namespace CS2Coach
 
             webView.CoreWebView2.Navigate(sampleHTML);
         }
-
-        public void SetUpGSL()
-        {
-            GameStateListener gsl = new GameStateListener(3000); // For localhost:3000
-            gsl.GenerateGSIConfigFile("CS2Coach");
-            gsl.GameEvent += OnGameEvent; // Subscribe to event for when round concludes.
-
-            if(!gsl.Start())
-            {
-                System.Diagnostics.Debug.WriteLine("GSL Could not start");
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("GSL Started");
-            }
-        }
-
-        void OnGameEvent(CS2GameEvent game_event)
-        {
-            if(game_event is RoundConcluded)
-            {
-                System.Diagnostics.Debug.WriteLine("Round Ended");
-                
-            }
-        }
-
 
     }
 }
