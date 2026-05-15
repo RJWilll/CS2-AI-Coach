@@ -34,3 +34,4 @@ C:\Users\reedj\random_git_repos\CS2-AI-Coach\CS2Coach\CS2Coach\bin\Debug\net10.0
 C:\Users\reedj\random_git_repos\CS2-AI-Coach\CS2Coach\CS2Coach\bin\Debug\net10.0-windows\OpenCvSharp.dll
 C:\Users\reedj\random_git_repos\CS2-AI-Coach\CS2Coach\CS2Coach\bin\Debug\net10.0-windows\runtimes\win-x64\native\OpenCvSharpExtern.dll
 C:\Users\reedj\random_git_repos\CS2-AI-Coach\CS2Coach\CS2Coach\bin\Debug\net10.0-windows\runtimes\win-x64\native\opencv_videoio_ffmpeg4130_64.dll
+C:\Users\reedj\random_git_repos\CS2-AI-Coach\CS2Coach\CS2Coach\bin\Debug\net10.0-windows\OpenCvSharp.Extensions.dll

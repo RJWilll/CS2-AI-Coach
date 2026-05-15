@@ -66,8 +66,5 @@ namespace CS2Coach
                 $"CT Consecutive Round Losses {state.Map.CTStatistics.ConsecutiveRoundLosses}," +
                 $"T Consecutive Round Losses {state.Map.TStatistics.ConsecutiveRoundLosses},";
         }
-
-
-
     }
 }

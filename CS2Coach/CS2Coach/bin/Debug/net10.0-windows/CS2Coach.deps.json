@@ -12,6 +12,7 @@
           "CounterStrike2GSI": "1.0.4.2659",
           "Microsoft.Web.WebView2": "1.0.3967.48",
           "OpenCvSharp4": "4.13.0.20260427",
+          "OpenCvSharp4.Extensions": "4.13.0.20260427",
           "OpenCvSharp4.runtime.win": "4.13.0.20260302",
           "Microsoft.Web.WebView2.Core": "1.0.3967.48",
           "Microsoft.Web.WebView2.WinForms": "1.0.3967.48",
@@ -90,6 +91,17 @@
       "OpenCvSharp4/4.13.0.20260427": {
         "runtime": {
           "lib/net8.0/OpenCvSharp.dll": {
+            "assemblyVersion": "4.13.0.0",
+            "fileVersion": "4.13.0.0"
+          }
+        }
+      },
+      "OpenCvSharp4.Extensions/4.13.0.20260427": {
+        "dependencies": {
+          "OpenCvSharp4": "4.13.0.20260427"
+        },
+        "runtime": {
+          "lib/net8.0/OpenCvSharp.Extensions.dll": {
             "assemblyVersion": "4.13.0.0",
             "fileVersion": "4.13.0.0"
           }
@@ -189,6 +201,13 @@
       "sha512": "sha512-2+bL0ID2B+IgGzSJjQ2OB8OW31asDSpweHKH3BPZajuG1Q9Yhg7yCZ9pdC/SHlytIOfGAhRFokbnuCVVwUoMWA==",
       "path": "opencvsharp4/4.13.0.20260427",
       "hashPath": "opencvsharp4.4.13.0.20260427.nupkg.sha512"
+    },
+    "OpenCvSharp4.Extensions/4.13.0.20260427": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CKZi67kxOT8S//3Da1hA0jLk5wLmW4jyut+UGf+/SSq6nI6zOes2i12WeqlUUFLMQqXKrKSrYqo3u/djKmJp0Q==",
+      "path": "opencvsharp4.extensions/4.13.0.20260427",
+      "hashPath": "opencvsharp4.extensions.4.13.0.20260427.nupkg.sha512"
     },
     "OpenCvSharp4.runtime.win/4.13.0.20260302": {
       "type": "package",

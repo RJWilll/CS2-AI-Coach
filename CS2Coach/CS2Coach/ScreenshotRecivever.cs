@@ -25,40 +25,39 @@ namespace CS2Coach
 
         public async void MakeScreenshots()
         {
-            if(!isCapture)
-            {
-                return;
-            }
-
             int screenWidth = Screen.PrimaryScreen.Bounds.Width;
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            Mat matImage = new Mat();
 
             Rectangle captureArea = new Rectangle(0, 0, screenWidth, screenHeight);
 
-            using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
+            while (isCapture)
             {
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CopyFromScreen(captureArea.Location, System.Drawing.Point.Empty, captureArea.Size);
-                }
 
-                using (Mat matImage = BitmapConverter.ToMat(bitmap))
+                using (Bitmap bitmap = new Bitmap(screenWidth, screenHeight))
                 {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(captureArea.Location, System.Drawing.Point.Empty, captureArea.Size);
+                    }
+
+                    matImage = new Mat();
+                    matImage = BitmapConverter.ToMat(bitmap);
+                    
                     this.Screenshots.Enqueue(matImage);
 
-                    if(this.Screenshots.Count > this.numOfFrames)
+                    if (this.Screenshots.Count > this.numOfFrames)
                     {
                         this.Screenshots.Dequeue();
                     }
                 }
+
+                await Task.Delay(1000000 / fps);
             }
 
-            Task.Delay(1000000 / fps);
-
-            this.MakeScreenshots();
         }
 
-        public void StartCapture()
+        public async void StartCapture()
         {
             isCapture = true;
             MakeScreenshots();
@@ -74,5 +73,13 @@ namespace CS2Coach
             return this.Screenshots.ToList();
         }
 
+        public void SaveImages()
+        {
+            int i = 0;
+            foreach (Mat mat in this.GetImages())
+            {
+                Cv2.ImWrite($"C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\output{i++}.png", mat);
+            }
+        }
     }
 }
