@@ -52,7 +52,7 @@ namespace CS2Coach
                     }
                 }
 
-                await Task.Delay(1000000 / fps);
+                await Task.Delay(1000 / fps);
             }
 
         }

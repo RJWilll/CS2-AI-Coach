@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
 using CounterStrike2GSI;
 using CounterStrike2GSI.EventMessages;
+using System.Diagnostics;
 
 namespace CS2Coach
 {
@@ -31,6 +32,7 @@ namespace CS2Coach
             gsi = new GameStateListener(3000); // For localhost:3000
             this.gsi.GenerateGSIConfigFile("CS2Coach");
             this.gsi.NewGameState += OnGameEvent; // Subscribe to event for when round concludes.
+            this.gsiReport = "Empty Report";
 
             if (!gsi.Start())
             {
@@ -65,6 +67,11 @@ namespace CS2Coach
                 $"Player Round Kills: {state.Player.State.RoundKills}," +
                 $"CT Consecutive Round Losses {state.Map.CTStatistics.ConsecutiveRoundLosses}," +
                 $"T Consecutive Round Losses {state.Map.TStatistics.ConsecutiveRoundLosses},";
+        }
+
+        public void WriteReportToConsole()
+        {
+            Debug.WriteLine(this.GSIReport);
         }
     }
 }

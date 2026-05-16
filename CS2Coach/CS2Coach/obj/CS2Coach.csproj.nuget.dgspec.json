@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[1.0.4.2659, )"
             },
+            "Google.GenAI": {
+              "target": "Package",
+              "version": "[1.6.2, )"
+            },
             "Microsoft.Web.WebView2": {
               "target": "Package",
               "version": "[1.0.3967.48, )"

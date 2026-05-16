@@ -1,11 +1,12 @@
 namespace CS2Coach
 {
+    using CounterStrike2GSI;
+    using CounterStrike2GSI.EventMessages;
+    using Google.GenAI;
+    using Microsoft.Web.WebView2.Core;
     using System;
     using System.IO;
     using System.Windows.Forms;
-    using Microsoft.Web.WebView2.Core;
-    using CounterStrike2GSI;
-    using CounterStrike2GSI.EventMessages;
 
     public partial class Form1 : Form
     {
@@ -30,11 +31,21 @@ namespace CS2Coach
 
             webView.CoreWebView2.Navigate(sampleHTML);
 
-            Task.Delay(10000);
-            this.screenshotRecivever.EndCapture();
-            this.screenshotRecivever.SaveImages();
+            await Task.Delay(10000);
+            reciever.WriteReportToConsole();
+            
         }
 
+
+        public static async Task foo()
+        {
+                var client = new Client();
+                var response = await client.Models.GenerateContentAsync(
+                  model: "gemini-3-flash-preview", contents: "Explain how AI works in a few words"
+                );
+                Console.WriteLine(response.Candidates[0].Content.Parts[0].Text);
+        }
+        
 
 
     }
