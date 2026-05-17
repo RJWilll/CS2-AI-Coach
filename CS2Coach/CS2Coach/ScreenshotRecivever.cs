@@ -12,9 +12,10 @@ namespace CS2Coach
 {
     public class ScreenshotRecivever
     {
+        string BASEDIR = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
         Queue<Mat> Screenshots;
         int numOfFrames = 5;
-        int fps = 5;
+        int fps = 1;
 
         public bool isCapture = false;
 
@@ -79,7 +80,7 @@ namespace CS2Coach
             int i = 0;
             foreach (Mat mat in this.GetImages())
             {
-                Cv2.ImWrite($"C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\output{i++}.png", mat);
+                Cv2.ImWrite($"{BASEDIR}\\output{i++}.png", mat);
             }
         }
     }

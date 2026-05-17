@@ -13,6 +13,7 @@ namespace CS2Coach
         public event EventHandler GSIReportUpdated;
         public GameStateListener gsi;
         public string gsiReport;
+        bool buffer = true;
 
         public string GSIReport
         {
@@ -48,10 +49,16 @@ namespace CS2Coach
 
         void OnGameEvent(GameState state) // Pops at every game event, but we only care about round conclusion for now.
         {
-            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over) // If round is over
+            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over && buffer) // If round is over
             {
                 CreateGSIReport(state);
                 Debug.WriteLine("\n\n" + state);
+                buffer = false;
+            }
+
+            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Live) // If round just started, reset buffer to allow report to be created at end of round.
+            {
+                buffer = true;
             }
         }
 

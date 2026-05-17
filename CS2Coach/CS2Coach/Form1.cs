@@ -16,7 +16,6 @@ namespace CS2Coach
         GSIReciever reciever;
         ScreenshotRecivever screenshotRecivever;
 
-        //string BASEDIR = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
 
 
         public CS2Coach()
@@ -27,6 +26,8 @@ namespace CS2Coach
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
 
             //this.Load += Form1_Load;
+            this.BackColor = Color.Magenta;
+            this.TransparencyKey = Color.Magenta;
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -48,12 +49,13 @@ namespace CS2Coach
         private void button1_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.StartCapture();
-
+            this.richTextBox2.Text = "Started capturing screenshots.";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.EndCapture();
+            this.richTextBox2.Text = "Stopped capturing screenshots.";
         }
     }
 }
