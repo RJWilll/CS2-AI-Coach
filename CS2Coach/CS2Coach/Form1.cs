@@ -15,7 +15,7 @@ namespace CS2Coach
     {
         GSIReciever reciever;
         ScreenshotRecivever screenshotRecivever;
-
+        string apikey;
 
 
         public CS2Coach()
@@ -23,6 +23,7 @@ namespace CS2Coach
             InitializeComponent();
             reciever = new GSIReciever();
             this.screenshotRecivever = new ScreenshotRecivever();
+            this.apikey = string.Empty; // Set your API key here from UI
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
 
             //this.Load += Form1_Load;
@@ -42,7 +43,7 @@ namespace CS2Coach
             }
             string gsiReport = reciever.GSIReport;
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
-            string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots);
+            string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
             this.richTextBox1.Text = aiReport;
         }
 
@@ -50,6 +51,7 @@ namespace CS2Coach
         {
             this.screenshotRecivever.StartCapture();
             this.richTextBox2.Text = "Started capturing screenshots.";
+            this.apikey = this.textBox1.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)

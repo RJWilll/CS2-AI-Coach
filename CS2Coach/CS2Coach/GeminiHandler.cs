@@ -14,8 +14,7 @@ namespace CS2Coach
 {
     public class GeminiHandler
     {
-        static string apiKey = "";
-        public static async Task<string> GetAIReport(string gsiReport, List<Mat> images)
+        public static async Task<string> GetAIReport(string gsiReport, List<Mat> images, string apiKey)
         {
             var content = FormatContent(gsiReport, images);
 
@@ -27,7 +26,7 @@ namespace CS2Coach
             return response.Text;
         }
 
-        public static async Task<string> Prompt(string prompt)
+        public static async Task<string> Prompt(string prompt, string apiKey)
         {
             var client = new Client(apiKey: apiKey);
 

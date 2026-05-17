@@ -32,6 +32,8 @@
             button2 = new Button();
             richTextBox2 = new RichTextBox();
             richTextBox1 = new RichTextBox();
+            textBox1 = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // button1
@@ -58,7 +60,7 @@
             // 
             richTextBox2.Location = new Point(335, 230);
             richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(171, 25);
+            richTextBox2.Size = new Size(148, 25);
             richTextBox2.TabIndex = 3;
             richTextBox2.Text = "Not running";
             // 
@@ -66,15 +68,35 @@
             // 
             richTextBox1.Location = new Point(12, 12);
             richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(677, 211);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(542, 230);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(129, 23);
+            textBox1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.White;
+            label1.Location = new Point(489, 233);
+            label1.Name = "label1";
+            label1.Size = new Size(47, 15);
+            label1.TabIndex = 6;
+            label1.Text = "API Key";
             // 
             // CS2Coach
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(704, 259);
+            Controls.Add(label1);
+            Controls.Add(textBox1);
             Controls.Add(richTextBox1);
             Controls.Add(richTextBox2);
             Controls.Add(button2);
@@ -85,6 +107,7 @@
             TopMost = true;
             Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -92,5 +115,7 @@
         private Button button2;
         private RichTextBox richTextBox2;
         private RichTextBox richTextBox1;
+        private TextBox textBox1;
+        private Label label1;
     }
 }
