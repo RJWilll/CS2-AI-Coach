@@ -14,7 +14,7 @@ namespace CS2Coach
 {
     public class GeminiHandler
     {
-        static string apiKey = "AIzaSyDVBm4jqMW-xEpFGMkxLf0JMI1O5sppdww";
+        static string apiKey = "";
 
         public static async Task<string> GetAIReport(string gsiReport, List<Mat> images)
         {
