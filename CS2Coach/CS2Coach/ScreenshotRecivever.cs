@@ -13,10 +13,10 @@ namespace CS2Coach
     public class ScreenshotRecivever
     {
         Queue<Mat> Screenshots;
-        int numOfFrames = 10;
+        int numOfFrames = 5;
         int fps = 5;
 
-        bool isCapture = false;
+        public bool isCapture = false;
 
         public ScreenshotRecivever()
         {
@@ -43,6 +43,7 @@ namespace CS2Coach
 
                     matImage = new Mat();
                     matImage = BitmapConverter.ToMat(bitmap);
+                    Cv2.Resize(matImage, matImage, new OpenCvSharp.Size(640, 360)); // Resize to 640x360 for faster processing
                     
                     this.Screenshots.Enqueue(matImage);
 

@@ -4,49 +4,56 @@ namespace CS2Coach
     using CounterStrike2GSI.EventMessages;
     using Google.GenAI;
     using Microsoft.Web.WebView2.Core;
+    using OpenCvSharp;
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Windows.Forms;
 
-    public partial class Form1 : Form
+
+    public partial class CS2Coach : Form
     {
         GSIReciever reciever;
         ScreenshotRecivever screenshotRecivever;
 
-        public Form1()
+        //string BASEDIR = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
+
+
+        public CS2Coach()
         {
             InitializeComponent();
             reciever = new GSIReciever();
             this.screenshotRecivever = new ScreenshotRecivever();
+            this.reciever.GSIReportUpdated += OnGSIReportUpdated;
 
-            this.Load += Form1_Load;
-            this.screenshotRecivever.StartCapture();
+            //this.Load += Form1_Load;
         }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await webView.EnsureCoreWebView2Async(null);
-
-            string sampleHTML = "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\HTML\\home.html";
-
-            webView.CoreWebView2.Navigate(sampleHTML);
-
-            await Task.Delay(10000);
-            reciever.WriteReportToConsole();
-            
         }
 
-
-        public static async Task foo()
+        async void OnGSIReportUpdated(object sender, EventArgs e)
         {
-                var client = new Client();
-                var response = await client.Models.GenerateContentAsync(
-                  model: "gemini-3-flash-preview", contents: "Explain how AI works in a few words"
-                );
-                Console.WriteLine(response.Candidates[0].Content.Parts[0].Text);
+            if (!screenshotRecivever.isCapture)
+            {
+                return;
+            }
+            string gsiReport = reciever.GSIReport;
+            List<Mat> screenshots = this.screenshotRecivever.GetImages();
+            string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots);
+            this.richTextBox1.Text = aiReport;
         }
-        
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.screenshotRecivever.StartCapture();
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.screenshotRecivever.EndCapture();
+        }
     }
 }

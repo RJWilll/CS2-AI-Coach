@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Nw4bbapQoBc=",
+  "dgSpecHash": "sB6vTLvF5ss=",
   "success": true,
-  "projectFilePath": "C:\\Users\\reedj\\random_git_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\CS2Coach.csproj",
+  "projectFilePath": "C:\\Users\\reedj\\random_github_repos\\CS2-AI-Coach\\CS2Coach\\CS2Coach\\CS2Coach.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\reedj\\.nuget\\packages\\anthropic.sdk\\5.10.0\\anthropic.sdk.5.10.0.nupkg.sha512",
     "C:\\Users\\reedj\\.nuget\\packages\\counterstrike2gsi\\1.0.4.2659\\counterstrike2gsi.1.0.4.2659.nupkg.sha512",

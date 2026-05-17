@@ -1,6 +1,6 @@
 ﻿namespace CS2Coach
 {
-    partial class Form1
+    partial class CS2Coach
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,37 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            webView = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)webView).BeginInit();
+            richTextBox1 = new RichTextBox();
+            button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
-            // webView
+            // richTextBox1
             // 
-            webView.AllowExternalDrop = true;
-            webView.CreationProperties = null;
-            webView.DefaultBackgroundColor = Color.White;
-            webView.Dock = DockStyle.Fill;
-            webView.Location = new Point(0, 0);
-            webView.Name = "webView";
-            webView.Size = new Size(800, 450);
-            webView.TabIndex = 0;
-            webView.ZoomFactor = 1D;
+            richTextBox1.Location = new Point(12, 12);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(572, 221);
+            richTextBox1.TabIndex = 0;
+            richTextBox1.Text = "Nothing to Show";
             // 
-            // Form1
+            // button1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            button1.Location = new Point(30, 251);
+            button1.Name = "button1";
+            button1.Size = new Size(164, 23);
+            button1.TabIndex = 1;
+            button1.Text = "Start Capture";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(200, 251);
+            button2.Name = "button2";
+            button2.Size = new Size(147, 23);
+            button2.TabIndex = 2;
+            button2.Text = "End Capture";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // CS2Coach
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(webView);
-            Name = "Form1";
-            Text = "Form1";
+            ClientSize = new Size(700, 338);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(richTextBox1);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "CS2Coach";
+            Text = "CS2Coach";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)webView).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView;
+        private RichTextBox richTextBox1;
+        private Button button1;
+        private Button button2;
     }
 }

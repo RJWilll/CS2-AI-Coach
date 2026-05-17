@@ -23,7 +23,7 @@ namespace CS2Coach
             set
             {
                 this.gsiReport = value;
-                GSIReportUpdated(this, new EventArgs());
+                GSIReportUpdated(gsiReport, new EventArgs());
             }
         }
 
@@ -33,6 +33,8 @@ namespace CS2Coach
             this.gsi.GenerateGSIConfigFile("CS2Coach");
             this.gsi.NewGameState += OnGameEvent; // Subscribe to event for when round concludes.
             this.gsiReport = "Empty Report";
+
+            GSIReportUpdated = delegate { };
 
             if (!gsi.Start())
             {
@@ -44,11 +46,12 @@ namespace CS2Coach
             }
         }
 
-        void OnGameEvent(GameState state)
+        void OnGameEvent(GameState state) // Pops at every game event, but we only care about round conclusion for now.
         {
             if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over) // If round is over
             {
                 CreateGSIReport(state);
+                Debug.WriteLine("\n\n" + state);
             }
         }
 
