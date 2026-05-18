@@ -21,7 +21,6 @@ namespace CS2Coach
         public CS2Coach()
         {
             InitializeComponent();
-            reciever = new GSIReciever();
             this.screenshotRecivever = new ScreenshotRecivever();
             this.apikey = string.Empty; // Set your API key here from UI
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
@@ -50,14 +49,16 @@ namespace CS2Coach
         private void button1_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.StartCapture();
-            this.richTextBox2.Text = "Started capturing screenshots.";
+            this.reciever = new GSIReciever(this.textBox2.Text);
+            this.richTextBox2.Text = "Started coach.";
             this.apikey = this.textBox1.Text;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.EndCapture();
-            this.richTextBox2.Text = "Stopped capturing screenshots.";
+            this.richTextBox2.Text = "Stopped coach.";
         }
     }
 }

@@ -42,7 +42,7 @@ namespace CS2Coach
             var result = new List<Google.GenAI.Types.Content>();
             var parts = new List<Part>();
 
-            parts.Add(new Part { Text = "You are a helpful assistant for Counter Strike 2 players. You are given a game report and screenshots. In quick bullet points (1-2 sentences) only give tips on the round and gameplay.\n" });
+            parts.Add(new Part { Text = "You are a helpful assistant for Counter Strike 2 players. You are given a game report and screenshots. In quick bullet points (1-2 sentences) only give tips on the round and gameplay. Use screenshots in assessment, specifically aim and position, but avoid stating specific screenshot numbers.\n" });
             parts.Add(new Part { Text = gsiReport });
 
 

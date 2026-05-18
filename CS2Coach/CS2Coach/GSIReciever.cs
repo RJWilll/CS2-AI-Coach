@@ -14,6 +14,7 @@ namespace CS2Coach
         public GameStateListener gsi;
         public string gsiReport;
         bool buffer = true;
+        string myId = string.Empty;
 
         public string GSIReport
         {
@@ -28,12 +29,13 @@ namespace CS2Coach
             }
         }
 
-        public GSIReciever()
+        public GSIReciever(string id)
         {
             gsi = new GameStateListener(3000); // For localhost:3000
             this.gsi.GenerateGSIConfigFile("CS2Coach");
             this.gsi.NewGameState += OnGameEvent; // Subscribe to event for when round concludes.
             this.gsiReport = "Empty Report";
+            this.myId = myId;
 
             GSIReportUpdated = delegate { };
 
@@ -49,14 +51,14 @@ namespace CS2Coach
 
         void OnGameEvent(GameState state) // Pops at every game event, but we only care about round conclusion for now.
         {
-            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over && buffer) // If round is over
+            if((state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over || (state.Player.State.Health <= 0 && state.Player.SteamID == myId)) && buffer) // If round is over
             {
                 CreateGSIReport(state);
                 Debug.WriteLine("\n\n" + state);
                 buffer = false;
             }
 
-            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Live) // If round just started, reset buffer to allow report to be created at end of round.
+            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Live && state.Player.State.Health > 0 && state.Player.SteamID == myId) // If round just started, reset buffer to allow report to be created at end of round.
             {
                 buffer = true;
             }

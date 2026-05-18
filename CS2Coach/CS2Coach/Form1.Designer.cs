@@ -34,33 +34,35 @@
             richTextBox1 = new RichTextBox();
             textBox1 = new TextBox();
             label1 = new Label();
+            label2 = new Label();
+            textBox2 = new TextBox();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Location = new Point(12, 229);
             button1.Name = "button1";
-            button1.Size = new Size(164, 23);
+            button1.Size = new Size(98, 23);
             button1.TabIndex = 1;
-            button1.Text = "Start Capture";
+            button1.Text = "Start";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(182, 229);
+            button2.Location = new Point(116, 229);
             button2.Name = "button2";
-            button2.Size = new Size(147, 23);
+            button2.Size = new Size(62, 23);
             button2.TabIndex = 2;
-            button2.Text = "End Capture";
+            button2.Text = "End";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
             // richTextBox2
             // 
-            richTextBox2.Location = new Point(335, 230);
+            richTextBox2.Location = new Point(184, 227);
             richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(148, 25);
+            richTextBox2.Size = new Size(130, 25);
             richTextBox2.TabIndex = 3;
             richTextBox2.Text = "Not running";
             // 
@@ -90,11 +92,30 @@
             label1.TabIndex = 6;
             label1.Text = "API Key";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.White;
+            label2.Location = new Point(320, 233);
+            label2.Name = "label2";
+            label2.Size = new Size(51, 15);
+            label2.TabIndex = 7;
+            label2.Text = "SteamID";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(377, 230);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(106, 23);
+            textBox2.TabIndex = 8;
+            // 
             // CS2Coach
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(704, 259);
+            Controls.Add(textBox2);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(richTextBox1);
@@ -117,5 +138,7 @@
         private RichTextBox richTextBox1;
         private TextBox textBox1;
         private Label label1;
+        private Label label2;
+        private TextBox textBox2;
     }
 }
