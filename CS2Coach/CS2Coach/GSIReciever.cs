@@ -14,7 +14,7 @@ namespace CS2Coach
         public GameStateListener gsi;
         public string gsiReport;
         bool buffer = true;
-        string myId = string.Empty;
+        public string myId = string.Empty;
 
         public string GSIReport
         {
