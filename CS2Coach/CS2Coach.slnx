@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="CS2Coach/CS2Coach.csproj" />
+  <Project Path="CS2CoachLibrary/CS2CoachLibrary.csproj" Id="2ff57901-d26d-4546-93c9-52ad979d7670" />
   <Project Path="CS2CoachWeb/CS2CoachWeb.csproj" Id="58425769-8a19-4fd6-9ed3-237bf549e971" />
 </Solution>

@@ -64,6 +64,10 @@
               "target": "Package",
               "version": "[1.6.2, )"
             },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.8, )"
+            },
             "Microsoft.Web.WebView2": {
               "target": "Package",
               "version": "[1.0.3967.48, )"
