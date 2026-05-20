@@ -1,4 +1,6 @@
 using CS2CoachLibrary;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 //Database Setup
-CS2CoachLibrary.DatabaseHandler.Initialize();
+DatabaseHandler.Initialize();
 
 app.UseHttpsRedirection();
 

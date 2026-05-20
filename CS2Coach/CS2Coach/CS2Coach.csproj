@@ -19,4 +19,8 @@
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20260302" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CS2CoachLibrary\CS2CoachLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

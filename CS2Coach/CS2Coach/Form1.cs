@@ -9,6 +9,7 @@ namespace CS2Coach
     using System.Diagnostics;
     using System.IO;
     using System.Windows.Forms;
+    using CS2CoachLibrary;
 
 
     public partial class CS2Coach : Form

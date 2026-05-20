@@ -418,6 +418,20 @@
             "rid": "win"
           }
         }
+      },
+      "CS2CoachLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "CounterStrike2GSI": "1.0.4.2659",
+          "Microsoft.Data.Sqlite": "10.0.8"
+        },
+        "compile": {
+          "bin/placeholder/CS2CoachLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CS2CoachLibrary.dll": {}
+        }
       }
     }
   },
@@ -955,11 +969,17 @@
         "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "CS2CoachLibrary/1.0.0": {
+      "type": "project",
+      "path": "../CS2CoachLibrary/CS2CoachLibrary.csproj",
+      "msbuildProject": "../CS2CoachLibrary/CS2CoachLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0-windows": [
       "Anthropic.SDK >= 5.10.0",
+      "CS2CoachLibrary >= 1.0.0",
       "CounterStrike2GSI >= 1.0.4.2659",
       "Google.GenAI >= 1.6.2",
       "Microsoft.Data.Sqlite >= 10.0.8",
@@ -1001,7 +1021,11 @@
         "net10.0-windows": {
           "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\reedj\\random_github_repos\\CS2-AI-Coach\\CS2Coach\\CS2CoachLibrary\\CS2CoachLibrary.csproj": {
+              "projectPath": "C:\\Users\\reedj\\random_github_repos\\CS2-AI-Coach\\CS2Coach\\CS2CoachLibrary\\CS2CoachLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
-using Microsoft.Web.WebView2.Core;
 using CounterStrike2GSI;
 using CounterStrike2GSI.EventMessages;
 using System.Diagnostics;
 
-namespace CS2Coach
+namespace CS2CoachLibrary
 {
     public class GSIReciever
     {
@@ -35,7 +33,7 @@ namespace CS2Coach
             this.gsi.GenerateGSIConfigFile("CS2Coach");
             this.gsi.NewGameState += OnGameEvent; // Subscribe to event for when round concludes.
             this.gsiReport = "Empty Report";
-            this.myId = myId;
+            this.myId = id;
 
             GSIReportUpdated = delegate { };
 
@@ -67,18 +65,25 @@ namespace CS2Coach
         public void CreateGSIReport(GameState state)
         {
             this.GSIReport =
-                $"GSI Report:" +
-                $"Map: {state.Map}," +
-                $"Team: {state.Player.Team}," +
-                $"CTScore: {state.Map.CTStatistics.Score}," +
-                $"TScore: {state.Map.TStatistics.Score}," +
-                $"Player Money: {state.Player.State.Money}," +
-                $"Player Kills: {state.Player.MatchStats.Kills}," +
-                $"Player Deaths: {state.Player.MatchStats.Deaths}," +
-                $"Player Assists: {state.Player.MatchStats.Assists}," +
-                $"Player Round Kills: {state.Player.State.RoundKills}," +
-                $"CT Consecutive Round Losses {state.Map.CTStatistics.ConsecutiveRoundLosses}," +
-                $"T Consecutive Round Losses {state.Map.TStatistics.ConsecutiveRoundLosses},";
+                $"{{\n" +
+                $"\"map\": \"{state.Map}\"," +
+                $"\"side\": \"{state.Player.Team}\"," +
+                $"\"round_number\": {state.Map.Round}," +
+                $"\"ct_score\": {state.Map.CTStatistics.Score}," +
+                $"\"t_score\": {state.Map.TStatistics.Score}," +
+                $"\"player_money\": {state.Player.State.Money}," +
+                $"\"kills\": {state.Player.MatchStats.Kills}," +
+                $"\"player_deaths\": {state.Player.MatchStats.Deaths}," +
+                $"\"player_assists\": {state.Player.MatchStats.Assists}," +
+                $"\"player_round_kills\": {state.Player.State.RoundKills}," +
+                $"\"damage_taken\": {state.Player.State.RoundTotalDamage}," +
+                $"\"survived\": {state.Player.State.Health > 0}," +
+                $"\"death_x\": {state.Player.Position.X}," +
+                $"\"death_y\": {state.Player.Position.Y}," +
+                $"\"weapons\": \"{state.Player.Weapons}\"," +
+                $"\"ct_consecutive_losses\": {state.Map.CTStatistics.ConsecutiveRoundLosses}," +
+                $"\"t_consecutive_losses\": {state.Map.TStatistics.ConsecutiveRoundLosses}," +
+                $"}}";
         }
 
         public void WriteReportToConsole()

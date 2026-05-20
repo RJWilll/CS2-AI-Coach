@@ -52,6 +52,10 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "CounterStrike2GSI": {
+              "target": "Package",
+              "version": "[1.0.4.2659, )"
+            },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
               "version": "[10.0.8, )"

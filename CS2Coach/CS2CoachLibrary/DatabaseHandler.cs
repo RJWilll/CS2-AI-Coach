@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Data.Sqlite;
+using Newtonsoft.Json.Linq;
 
 namespace CS2CoachLibrary
 {
@@ -11,13 +12,14 @@ namespace CS2CoachLibrary
 
         public static void Initialize()
         {
-                using var con = new SqliteConnection(DB_PATH);
-                con.Open();
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
 
-                var cmd = con.CreateCommand();
-                cmd.CommandText = """
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
                 CREATE TABLE IF NOT EXISTS matches (
-                    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                    match_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                    steam_id          INTEGER,
                     date        TEXT    NOT NULL,
                     map         TEXT    NOT NULL,
                     result      TEXT,           -- 'win' or 'loss', filled at match end
@@ -31,16 +33,127 @@ namespace CS2CoachLibrary
                     side            TEXT    NOT NULL,    -- 'CT' or 'T'
                     survived        INTEGER NOT NULL,    -- 0 or 1
                     kills           INTEGER NOT NULL,
-                    damage          INTEGER NOT NULL,
+                    damage_taken    INTEGER NOT NULL,
                     death_x         REAL,               -- null if survived
                     death_y         REAL,               -- null if survived
-                    weapon          TEXT,
+                    weapons          TEXT,
                     coaching_bullets TEXT,              -- JSON array of strings
                     mistake_tags    TEXT,               -- JSON array e.g. ["positioning","peeking"]
                     FOREIGN KEY (match_id) REFERENCES matches(id)
                 );
             """;
-                cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void InsertMatch(int id, string steamId, DateTime date, string map, string? result, string? score)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                INSERT INTO matches (id, steam_id, date, map, result, score)
+                VALUES ($id, $steam_id, $date, $map, $result, $score);
+            """;
+            cmd.Parameters.AddWithValue("$id", id);
+            cmd.Parameters.AddWithValue("$steam_id", steamId);
+            cmd.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd HH:mm:ss"));
+            cmd.Parameters.AddWithValue("$map", map);
+            cmd.Parameters.AddWithValue("$result", result);
+            cmd.Parameters.AddWithValue("$score", score);
+            cmd.ExecuteNonQuery();
+        }
+
+
+        public static void InsertRound(int matchId, JObject roundData, string coachingBulletsJson, string mistakeTagsJson)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                INSERT INTO rounds (match_id, round_number, side, survived, kills, damage_taken, death_x, death_y, weapons, coaching_bullets, mistake_tags)
+                VALUES ($match_id, $round_number, $side, $survived, $kills, $damage_taken, $death_x, $death_y, $weapons, $coaching_bullets, $mistake_tags);
+            """;
+            cmd.Parameters.AddWithValue("$match_id", matchId);
+            cmd.Parameters.AddWithValue("$round_number", roundData["round_number"].Value<int>());
+            cmd.Parameters.AddWithValue("$side", roundData["side"].Value<string>());
+            cmd.Parameters.AddWithValue("$survived", roundData["survived"].Value<bool>());
+            cmd.Parameters.AddWithValue("$kills", roundData["kills"].Value<int>());
+            cmd.Parameters.AddWithValue("$damage_taken", roundData["damage_taken"].Value<int>());
+            if (roundData["survived"].Value<bool>())
+            {
+                cmd.Parameters.AddWithValue("$death_x", DBNull.Value);
+                cmd.Parameters.AddWithValue("$death_y", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("$death_x", roundData["death_x"].Value<float?>());
+                cmd.Parameters.AddWithValue("$death_y", roundData["death_y"].Value<float?>());
+            }
+            cmd.Parameters.AddWithValue("$weapons", roundData["weapons"].Value<string>());
+            cmd.Parameters.AddWithValue("$coaching_bullets", coachingBulletsJson);
+            cmd.Parameters.AddWithValue("$mistake_tags", mistakeTagsJson);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static void UpdateMatchResult(int matchId, string result, string score)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                UPDATE matches
+                SET result = $result, score = $score
+                WHERE match_id = $match_id;
+            """;
+            cmd.Parameters.AddWithValue("$result", result);
+            cmd.Parameters.AddWithValue("$score", score);
+            cmd.Parameters.AddWithValue("$match_id", matchId);
+            cmd.ExecuteNonQuery();
+        }
+
+        public static JObject GetMatch(int matchId)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT * FROM matches WHERE match_id = $match_id;
+            """;
+            cmd.Parameters.AddWithValue("$match_id", matchId);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine($"{{\"match_id\": {reader["match_id"]}, \"steam_id\": \"{reader["steam_id"]}\", \"date\": \"{reader["date"]}\", \"map\": \"{reader["map"]}\", \"result\": \"{reader["result"]}\", \"score\": \"{reader["score"]}\"}}");
+            }
+            return new JObject();
+        }
+
+        public static List<JObject> GetMatchRounds(int matchId)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT * FROM rounds WHERE match_id = $match_id;
+            """;
+            cmd.Parameters.AddWithValue("$match_id", matchId);
+            var reader = cmd.ExecuteReader();
+            var rounds = new List<JObject>();
+            while (reader.Read())
+            {
+                rounds.Add(new JObject
+                {
+                    ["round_number"] = reader["round_number"].ToString(),
+                    ["side"] = reader["side"].ToString(),
+                    ["survived"] = reader["survived"].ToString(),
+                    ["kills"] = reader["kills"].ToString(),
+                    ["damage_taken"] = reader["damage_taken"].ToString(),
+                    ["death_x"] = reader["death_x"].ToString(),
+                    ["death_y"] = reader["death_y"].ToString(),
+                    ["weapons"] = reader["weapons"].ToString()
+                });
+            }
+            return rounds;
         }
     }
 }
