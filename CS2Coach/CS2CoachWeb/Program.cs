@@ -19,6 +19,7 @@ if (!app.Environment.IsDevelopment())
 
 //Database Setup
 DatabaseHandler.Initialize();
+DatabaseHandler.ClearDatabase();
 
 app.UseHttpsRedirection();
 

@@ -46,6 +46,9 @@ namespace CS2Coach
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
             string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
             this.richTextBox1.Text = aiReport;
+
+            //Add to database
+            DatabaseHandler.AddReport(gsiReport, aiReport);
         }
 
         private void button1_Click(object sender, EventArgs e)

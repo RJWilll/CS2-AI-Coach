@@ -45,6 +45,18 @@ namespace CS2CoachLibrary
             cmd.ExecuteNonQuery();
         }
 
+        public static void ClearDatabase()
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                DELETE FROM rounds;
+                DELETE FROM matches;
+            """;
+            cmd.ExecuteNonQuery();
+        }
+
         public static void InsertMatch(int id, string steamId, DateTime date, string map, string? result, string? score)
         {
             using var con = new SqliteConnection(DB_PATH);
