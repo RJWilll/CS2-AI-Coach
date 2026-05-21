@@ -66,23 +66,23 @@ namespace CS2CoachLibrary
         {
             this.GSIReport =
                 $"{{\n" +
-                $"\"map\": \"{state.Map}\"," +
-                $"\"side\": \"{state.Player.Team}\"," +
-                $"\"round_number\": {state.Map.Round}," +
-                $"\"ct_score\": {state.Map.CTStatistics.Score}," +
-                $"\"t_score\": {state.Map.TStatistics.Score}," +
-                $"\"player_money\": {state.Player.State.Money}," +
-                $"\"kills\": {state.Player.MatchStats.Kills}," +
-                $"\"player_deaths\": {state.Player.MatchStats.Deaths}," +
-                $"\"player_assists\": {state.Player.MatchStats.Assists}," +
-                $"\"player_round_kills\": {state.Player.State.RoundKills}," +
-                $"\"damage_taken\": {state.Player.State.RoundTotalDamage}," +
-                $"\"survived\": {state.Player.State.Health > 0}," +
-                $"\"death_x\": {state.Player.Position.X}," +
-                $"\"death_y\": {state.Player.Position.Y}," +
-                $"\"weapons\": \"{state.Player.Weapons}\"," +
-                $"\"ct_consecutive_losses\": {state.Map.CTStatistics.ConsecutiveRoundLosses}," +
-                $"\"t_consecutive_losses\": {state.Map.TStatistics.ConsecutiveRoundLosses}," +
+                $"\"map\": \"{state.Map.Name}\",\n" +
+                $"\"side\": \"{state.Player.Team}\",\n" +
+                $"\"round_number\": {state.Map.Round},\n" +
+                $"\"ct_score\": {state.Map.CTStatistics.Score},\n" +
+                $"\"t_score\": {state.Map.TStatistics.Score},\n" +
+                $"\"player_money\": {state.Player.State.Money},\n" +
+                $"\"kills\": {state.Player.MatchStats.Kills},\n" +
+                $"\"player_deaths\": {state.Player.MatchStats.Deaths},\n" +
+                $"\"player_assists\": {state.Player.MatchStats.Assists},\n" +
+                $"\"player_round_kills\": {state.Player.State.RoundKills},\n" +
+                $"\"damage_taken\": {state.Player.State.RoundTotalDamage},\n" +
+                $"\"survived\": \"{state.Player.State.Health > 0}\",\n" +
+                $"\"death_x\": \"{state.Player.Position.X}\",\n" +
+                $"\"death_y\": \"{state.Player.Position.Y}\",\n" +
+                $"\"weapons\": \"{state.Player.Weapons}\",\n" +
+                $"\"ct_consecutive_losses\": {state.Map.CTStatistics.ConsecutiveRoundLosses},\n" +
+                $"\"t_consecutive_losses\": {state.Map.TStatistics.ConsecutiveRoundLosses},\n" +
                 $"}}";
         }
 

@@ -1,6 +1,9 @@
 using CS2CoachLibrary;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Microsoft.Data.Sqlite;
+using System.Diagnostics;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,7 @@ if (!app.Environment.IsDevelopment())
 
 //Database Setup
 DatabaseHandler.Initialize();
-DatabaseHandler.ClearDatabase();
+//DatabaseHandler.ClearDatabase();
 
 app.UseHttpsRedirection();
 

@@ -5,7 +5,7 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    JObject match = DatabaseHandler.GetMatch(12);
+    JObject? match = DatabaseHandler.GetMatch(12);
     List<JObject> rounds = DatabaseHandler.GetMatchRounds(12);
 }
 

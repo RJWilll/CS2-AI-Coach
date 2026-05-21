@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Data.Sqlite;
-using Newtonsoft.Json.Linq;
 
 namespace CS2CoachLibrary
 {
     public static class DatabaseHandler
     {
-        public static string DB_PATH = "Data Source=cs2coach.db";
+        public static string DB_PATH = $"Data Source={Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.Parent.FullName}\\cs2coach.db";
 
         public static void Initialize()
         {
@@ -19,7 +20,7 @@ namespace CS2CoachLibrary
             var cmd = con.CreateCommand();
             cmd.CommandText = """
                 CREATE TABLE IF NOT EXISTS matches (
-                    match_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id          INTEGER PRIMARY KEY,
                     steam_id          INTEGER,
                     date        TEXT    NOT NULL,
                     map         TEXT    NOT NULL,
@@ -28,7 +29,6 @@ namespace CS2CoachLibrary
                 );
 
                 CREATE TABLE IF NOT EXISTS rounds (
-                    id              INTEGER PRIMARY KEY AUTOINCREMENT,
                     match_id        INTEGER NOT NULL,
                     round_number    INTEGER NOT NULL,
                     side            TEXT    NOT NULL,    -- 'CT' or 'T'
@@ -45,6 +45,13 @@ namespace CS2CoachLibrary
             """;
             cmd.ExecuteNonQuery();
         }
+
+        public static void DeleteDatabase()
+        {
+            if (File.Exists(DB_PATH))
+                File.Delete(DB_PATH);
+        }
+
 
         public static void ClearDatabase()
         {
@@ -70,9 +77,9 @@ namespace CS2CoachLibrary
             cmd.Parameters.AddWithValue("$id", id);
             cmd.Parameters.AddWithValue("$steam_id", steamId);
             cmd.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd HH:mm:ss"));
-            cmd.Parameters.AddWithValue("$map", gsiReport["map"]);
+            cmd.Parameters.AddWithValue("$map", gsiReport["map"].ToString());
             cmd.Parameters.AddWithValue("$result", "N/A");
-            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"]}, T: {gsiReport["t_score"]}" );
+            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"].ToString()}, T: {gsiReport["t_score"].ToString()}" );
             cmd.ExecuteNonQuery();
         }
 
@@ -116,30 +123,38 @@ namespace CS2CoachLibrary
             cmd.CommandText = """
                 UPDATE matches
                 SET result = $result, score = $score
-                WHERE match_id = $match_id;
+                WHERE id = $id;
             """;
             cmd.Parameters.AddWithValue("$result", "N/A");
-            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"]}, T: {gsiReport["t_score"]}");
-            cmd.Parameters.AddWithValue("$match_id", matchId);
+            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"].ToString()}, T: {gsiReport["t_score"].ToString()}");
+            cmd.Parameters.AddWithValue("$id", matchId);
             cmd.ExecuteNonQuery();
         }
 
-        public static JObject GetMatch(int matchId)
+        public static JObject? GetMatch(int matchId)
         {
             string temp = string.Empty;
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandText = """
-                SELECT * FROM matches WHERE match_id = $match_id;
+                SELECT * FROM matches WHERE id = $id;
             """;
-            cmd.Parameters.AddWithValue("$match_id", matchId);
+            cmd.Parameters.AddWithValue("$id", matchId);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                temp = ($"{{\"match_id\": {reader["match_id"]}, \"steam_id\": \"{reader["steam_id"]}\", \"date\": \"{reader["date"]}\", \"map\": \"{reader["map"]}\", \"result\": \"{reader["result"]}\", \"score\": \"{reader["score"]}\"}}");
+                temp = $"{{\n\"id\": {reader["id"]},\n \"steam_id\": \"{reader["steam_id"]}\",\n \"date\": \"{reader["date"]}\",\n \"map\": \"{reader["map"]}\",\n \"result\": \"{reader["result"]}\",\n \"score\": \"{reader["score"]}\"\n}}";
             }
-            return JObject.Parse(temp);
+
+            if(temp != string.Empty)
+            {
+                return JObject.Parse(temp);
+            }
+            else
+            {
+                return new JObject();
+            }
         }
 
         public static List<JObject> GetMatchRounds(int matchId)
