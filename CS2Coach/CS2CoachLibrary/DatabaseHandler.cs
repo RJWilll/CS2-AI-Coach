@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json.Linq;
@@ -57,7 +58,7 @@ namespace CS2CoachLibrary
             cmd.ExecuteNonQuery();
         }
 
-        public static void InsertMatch(int id, string steamId, DateTime date, string map, string? result, string? score)
+        public static void InsertMatch(int id, string steamId, DateTime date, JObject gsiReport)
         {
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
@@ -69,9 +70,9 @@ namespace CS2CoachLibrary
             cmd.Parameters.AddWithValue("$id", id);
             cmd.Parameters.AddWithValue("$steam_id", steamId);
             cmd.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd HH:mm:ss"));
-            cmd.Parameters.AddWithValue("$map", map);
-            cmd.Parameters.AddWithValue("$result", result);
-            cmd.Parameters.AddWithValue("$score", score);
+            cmd.Parameters.AddWithValue("$map", gsiReport["map"]);
+            cmd.Parameters.AddWithValue("$result", "N/A");
+            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"]}, T: {gsiReport["t_score"]}" );
             cmd.ExecuteNonQuery();
         }
 
@@ -107,7 +108,7 @@ namespace CS2CoachLibrary
             cmd.ExecuteNonQuery();
         }
 
-        public static void UpdateMatchResult(int matchId, string result, string score)
+        public static void UpdateMatchResult(int matchId, JObject gsiReport)
         {
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
@@ -117,14 +118,15 @@ namespace CS2CoachLibrary
                 SET result = $result, score = $score
                 WHERE match_id = $match_id;
             """;
-            cmd.Parameters.AddWithValue("$result", result);
-            cmd.Parameters.AddWithValue("$score", score);
+            cmd.Parameters.AddWithValue("$result", "N/A");
+            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"]}, T: {gsiReport["t_score"]}");
             cmd.Parameters.AddWithValue("$match_id", matchId);
             cmd.ExecuteNonQuery();
         }
 
         public static JObject GetMatch(int matchId)
         {
+            string temp = string.Empty;
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
             var cmd = con.CreateCommand();
@@ -135,9 +137,9 @@ namespace CS2CoachLibrary
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Console.WriteLine($"{{\"match_id\": {reader["match_id"]}, \"steam_id\": \"{reader["steam_id"]}\", \"date\": \"{reader["date"]}\", \"map\": \"{reader["map"]}\", \"result\": \"{reader["result"]}\", \"score\": \"{reader["score"]}\"}}");
+                temp = ($"{{\"match_id\": {reader["match_id"]}, \"steam_id\": \"{reader["steam_id"]}\", \"date\": \"{reader["date"]}\", \"map\": \"{reader["map"]}\", \"result\": \"{reader["result"]}\", \"score\": \"{reader["score"]}\"}}");
             }
-            return new JObject();
+            return JObject.Parse(temp);
         }
 
         public static List<JObject> GetMatchRounds(int matchId)

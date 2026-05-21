@@ -10,13 +10,14 @@ namespace CS2Coach
     using System.IO;
     using System.Windows.Forms;
     using CS2CoachLibrary;
-
+    using Newtonsoft.Json.Linq;
 
     public partial class CS2Coach : Form
     {
         GSIReciever reciever;
         ScreenshotRecivever screenshotRecivever;
         string apikey;
+        string steamID;
 
 
         public CS2Coach()
@@ -48,14 +49,27 @@ namespace CS2Coach
             this.richTextBox1.Text = aiReport;
 
             //Add to database
-            DatabaseHandler.AddReport(gsiReport, aiReport);
+            int matchID = 12;
+            int roundID = 1;
+            JObject jsiReport = JObject.Parse(gsiReport);
+            DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, "N/A");
+
+            if (DatabaseHandler.GetMatch(matchID).Count == 0)
+            {
+                DatabaseHandler.InsertMatch(matchID, steamID, DateTime.Now, jsiReport);
+            }
+            else
+            {
+                DatabaseHandler.UpdateMatchResult(matchID, jsiReport);
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.StartCapture();
             this.richTextBox2.Text = "Started coach.";
-            this.reciever.myId = this.textBox2.Text;
+            this.reciever.myId = steamID = this.textBox2.Text;
             this.apikey = this.textBox1.Text;
         }
 
