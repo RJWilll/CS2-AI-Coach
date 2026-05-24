@@ -1,17 +1,41 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
-using Microsoft.Web.WebView2.Core;
-using CounterStrike2GSI;
+﻿using CounterStrike2GSI;
 using CounterStrike2GSI.EventMessages;
+using Microsoft.Web.WebView2.Core;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 
 namespace CS2Coach
 {
-    public class ScreenshotRecivever
+    public partial class ScreenshotRecivever
     {
+
+
+            [LibraryImport("user32.dll", EntryPoint = "FindWindowW", StringMarshalling = StringMarshalling.Utf16)]
+            private static partial IntPtr FindWindow(string? lpClassName, string? lpWindowName);
+
+            [LibraryImport("user32.dll", EntryPoint = "GetWindowRect")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            private static partial bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+            [LibraryImport("user32.dll", EntryPoint = "PrintWindow")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            private static partial bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+        
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left, Top, Right, Bottom;
+        }
+
         string BASEDIR = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
         Queue<Mat> Screenshots;
         int numOfFrames = 5;
@@ -26,8 +50,12 @@ namespace CS2Coach
 
         public async void MakeScreenshots()
         {
-            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
-            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            IntPtr hWnd = FindWindow(null, "Counter-Strike 2");
+
+            GetWindowRect(hWnd, out RECT rect);
+            int screenWidth = rect.Right - rect.Left;
+            int screenHeight = rect.Bottom - rect.Top;
+
             Mat matImage = new Mat();
 
             Rectangle captureArea = new Rectangle(0, 0, screenWidth, screenHeight);
@@ -39,7 +67,9 @@ namespace CS2Coach
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
-                        g.CopyFromScreen(captureArea.Location, System.Drawing.Point.Empty, captureArea.Size);
+                        IntPtr hdc = g.GetHdc();
+                        PrintWindow(hWnd, hdc, 0);
+                        g.ReleaseHdc(hdc);
                     }
 
                     matImage = new Mat();
