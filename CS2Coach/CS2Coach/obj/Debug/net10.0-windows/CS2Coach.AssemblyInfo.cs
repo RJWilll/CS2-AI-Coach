@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CS2Coach")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2e608cd50d23d80dd8e5fc1e2f54e11c63fe4f7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48f877c12fef0b448475648df87c34362c7eaaf2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CS2Coach")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CS2Coach")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

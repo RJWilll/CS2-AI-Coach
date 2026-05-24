@@ -10,13 +10,14 @@ namespace CS2Coach
     using System.IO;
     using System.Windows.Forms;
     using CS2CoachLibrary;
-
+    using Newtonsoft.Json.Linq;
 
     public partial class CS2Coach : Form
     {
         GSIReciever reciever;
         ScreenshotRecivever screenshotRecivever;
         string apikey;
+        string steamID;
 
 
         public CS2Coach()
@@ -26,6 +27,7 @@ namespace CS2Coach
             this.apikey = string.Empty; // Set your API key here from UI
             this.reciever = new GSIReciever(string.Empty);
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
+            DatabaseHandler.Initialize();
 
             //this.Load += Form1_Load;
             this.BackColor = Color.Magenta;
@@ -45,17 +47,30 @@ namespace CS2Coach
             string gsiReport = reciever.GSIReport;
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
             string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
-            this.richTextBox1.Text = aiReport;
+            this.SetText(aiReport);
 
             //Add to database
-            DatabaseHandler.AddReport(gsiReport, aiReport);
+            int matchID = 12;
+            int roundID = 1;
+            JObject jsiReport = JObject.Parse(gsiReport);
+
+            if (DatabaseHandler.GetMatch(matchID).Count == 0)
+            {
+                DatabaseHandler.InsertMatch(matchID, steamID, DateTime.Now, jsiReport);
+            }
+            else
+            {
+                DatabaseHandler.UpdateMatchResult(matchID, jsiReport);
+            }
+
+            DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, "N/A");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.StartCapture();
             this.richTextBox2.Text = "Started coach.";
-            this.reciever.myId = this.textBox2.Text;
+            this.reciever.myId = steamID = this.textBox2.Text;
             this.apikey = this.textBox1.Text;
         }
 
@@ -63,6 +78,21 @@ namespace CS2Coach
         {
             this.screenshotRecivever.EndCapture();
             this.richTextBox2.Text = "Stopped coach.";
+        }
+
+        delegate void SetTextCallback(string text);
+
+        private void SetText(string text)
+        {
+            if (this.richTextBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.richTextBox1.Text = text;
+            }
         }
     }
 }

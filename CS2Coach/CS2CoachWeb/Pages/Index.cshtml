@@ -1,10 +1,24 @@
 ﻿@page
+@using Newtonsoft.Json.Linq; 
+@using CS2CoachLibrary;
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    JObject? match = DatabaseHandler.GetMatch(12);
+    List<JObject> rounds = DatabaseHandler.GetMatchRounds(12);
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <p>Match Score: @match["score"]</p>
+
+    @foreach(JObject round in rounds)
+    {
+        <p>Round Num: @round["round_number"], Current Num of Kills: @round["kills"]</p>
+        <br />
+    }
+
 </div>

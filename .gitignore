@@ -1,1 +1,16 @@
 *.db
+*.suo
+*.user
+*.env
+
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+
+[Dd]ebug/x64/
+[Dd]ebugPublic/x64/
+[Rr]elease/x64/
+[Rr]eleases/x64/
+bin/x64/
+obj/x64/
