@@ -27,10 +27,6 @@ namespace CS2Coach
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
-        [LibraryImport("user32.dll", EntryPoint = "PrintWindow")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static partial bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
-
         [LibraryImport("user32.dll", EntryPoint = "GetDC")]
         private static partial IntPtr GetDC(IntPtr hWnd);
 
@@ -117,7 +113,6 @@ namespace CS2Coach
                 DeleteObject(hBitmap);
                 DeleteDC(hdcMem);
                 ReleaseDC(IntPtr.Zero, hdcScreen);
-
 
                 await Task.Delay(1000 / fps);
             }

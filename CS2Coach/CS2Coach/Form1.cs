@@ -18,6 +18,7 @@ namespace CS2Coach
         ScreenshotRecivever screenshotRecivever;
         string apikey;
         string steamID;
+        int matchID;
 
 
         public CS2Coach()
@@ -27,6 +28,8 @@ namespace CS2Coach
             this.apikey = string.Empty; // Set your API key here from UI
             this.reciever = new GSIReciever(string.Empty);
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
+            this.reciever.NewMatchStarted += OnNewMatch;
+            this.matchID = DatabaseHandler.GetLastMatchID();
             DatabaseHandler.Initialize();
 
             //this.Load += Form1_Load;
@@ -50,8 +53,6 @@ namespace CS2Coach
             this.SetText(aiReport);
 
             //Add to database
-            int matchID = 12;
-            int roundID = 1;
             JObject jsiReport = JObject.Parse(gsiReport);
 
             if (DatabaseHandler.GetMatch(matchID).Count == 0)
@@ -64,6 +65,11 @@ namespace CS2Coach
             }
 
             DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, "N/A");
+        }
+
+        void OnNewMatch(object sender, EventArgs e)
+        {
+            matchID = matchID++;
         }
 
         private void button1_Click(object sender, EventArgs e)

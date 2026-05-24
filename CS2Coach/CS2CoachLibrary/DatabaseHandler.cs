@@ -184,5 +184,25 @@ namespace CS2CoachLibrary
             }
             return rounds;
         }
+
+        public static int GetLastMatchID()
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT MAX(id) as max_id FROM matches;
+            """;
+            var reader = cmd.ExecuteReader();
+            int maxId = 0;
+            while (reader.Read())
+            {
+                if (reader["max_id"] != DBNull.Value)
+                {
+                    maxId = Convert.ToInt32(reader["max_id"]);
+                }
+            }
+            return maxId;
+        }
     }
 }

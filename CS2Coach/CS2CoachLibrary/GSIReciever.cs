@@ -9,10 +9,12 @@ namespace CS2CoachLibrary
     public class GSIReciever
     {
         public event EventHandler GSIReportUpdated;
+        public event EventHandler NewMatchStarted;
         public GameStateListener gsi;
         public string gsiReport;
         bool buffer = true;
         public string myId = string.Empty;
+        public int curRound = 25;
 
         public string GSIReport
         {
@@ -60,6 +62,13 @@ namespace CS2CoachLibrary
             {
                 buffer = true;
             }
+
+            if (state.Map.Round < this.curRound)
+            {
+                NewMatchStarted(this.curRound, new EventArgs());
+            }
+            this.curRound = state.Map.Round;
+
         }
 
         public void CreateGSIReport(GameState state)
