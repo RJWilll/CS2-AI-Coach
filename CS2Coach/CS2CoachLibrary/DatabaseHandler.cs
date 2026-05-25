@@ -133,7 +133,7 @@ namespace CS2CoachLibrary
 
         public static JObject? GetMatch(int matchId)
         {
-            string temp = string.Empty;
+            JObject temp = new JObject();
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
             var cmd = con.CreateCommand();
@@ -144,17 +144,10 @@ namespace CS2CoachLibrary
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                temp = $"{{\n\"id\": {reader["id"]},\n \"steam_id\": \"{reader["steam_id"]}\",\n \"date\": \"{reader["date"]}\",\n \"map\": \"{reader["map"]}\",\n \"result\": \"{reader["result"]}\",\n \"score\": \"{reader["score"]}\"\n}}";
+                temp = ConvertMatchReaderToJSON(reader);
             }
 
-            if(temp != string.Empty)
-            {
-                return JObject.Parse(temp);
-            }
-            else
-            {
-                return new JObject();
-            }
+            return temp;
         }
 
         public static List<JObject> GetMatchRounds(int matchId)
@@ -170,18 +163,9 @@ namespace CS2CoachLibrary
             var rounds = new List<JObject>();
             while (reader.Read())
             {
-                rounds.Add(new JObject
-                {
-                    ["round_number"] = reader["round_number"].ToString(),
-                    ["side"] = reader["side"].ToString(),
-                    ["survived"] = reader["survived"].ToString(),
-                    ["kills"] = reader["kills"].ToString(),
-                    ["damage_taken"] = reader["damage_taken"].ToString(),
-                    ["death_x"] = reader["death_x"].ToString(),
-                    ["death_y"] = reader["death_y"].ToString(),
-                    ["weapons"] = reader["weapons"].ToString()
-                });
+                rounds.Add(ConvertRoundReaderToJSON(reader));
             }
+
             return rounds;
         }
 
@@ -203,6 +187,52 @@ namespace CS2CoachLibrary
                 }
             }
             return maxId;
+        }
+
+        public static List<JObject> GetMachesBySteamID(string steamId)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT * FROM matches WHERE steam_id = $steam_id;
+            """;
+            cmd.Parameters.AddWithValue("$steam_id", steamId);
+            var reader = cmd.ExecuteReader();
+            var matches = new List<JObject>();
+            while (reader.Read())
+            {
+                matches.Add(ConvertMatchReaderToJSON(reader));
+            }
+            return matches;
+        }
+
+        public static JObject ConvertMatchReaderToJSON(SqliteDataReader reader)
+        {
+            return new JObject
+            {
+                ["id"] = reader["id"].ToString(),
+                ["steam_id"] = reader["steam_id"].ToString(),
+                ["date"] = reader["date"].ToString(),
+                ["map"] = reader["map"].ToString(),
+                ["result"] = reader["result"].ToString(),
+                ["score"] = reader["score"].ToString()
+            };
+        }
+
+        public static JObject ConvertRoundReaderToJSON(SqliteDataReader reader)
+        {
+            return new JObject
+            {
+                ["round_number"] = reader["round_number"].ToString(),
+                ["side"] = reader["side"].ToString(),
+                ["survived"] = reader["survived"].ToString(),
+                ["kills"] = reader["kills"].ToString(),
+                ["damage_taken"] = reader["damage_taken"].ToString(),
+                ["death_x"] = reader["death_x"].ToString(),
+                ["death_y"] = reader["death_y"].ToString(),
+                ["weapons"] = reader["weapons"].ToString()
+            };
         }
     }
 }

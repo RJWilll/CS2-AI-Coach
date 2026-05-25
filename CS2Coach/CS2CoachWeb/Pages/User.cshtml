@@ -1,0 +1,22 @@
+﻿@page
+@model CS2CoachWeb.Pages.UserModel
+
+@using Newtonsoft.Json.Linq; 
+@using CS2CoachLibrary;
+
+@{
+    ViewData["Title"] = "User Page";
+    List<JObject?> matches = DatabaseHandler.GetMachesBySteamID(@Model.steamId);
+    //List<JObject> rounds = DatabaseHandler.GetMatchRounds(12);
+}
+
+<div class="text-center">
+    <h1 class="display-4">User: @Model.name</h1>
+
+    @foreach (JObject? match in matches)
+    {
+        <p>Match Score: @match["score"]</p>
+    }
+
+</div>
+

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CounterStrike2GSI" Version="1.0.4.2659" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.8" />
+    <PackageReference Include="SteamWebAPI2" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
