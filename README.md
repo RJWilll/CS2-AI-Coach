@@ -6,7 +6,7 @@ After each round, the Coach generates a full match report listing bulletpoints t
 strategy, positioning, economy, and aiming to help you improve after every round.
 
 # How to use
-Using either the Visual Studio project solution or the release version, run the application, enter your Google Gemini API Key, and 
+Using either the Visual Studio project solution or the release version, run the application, enter your Google Gemini API Key and Steam ID, and 
 click 'Start Capture'. Coach tips are updated at the end of every round. All CS2 data is collected as you play with no other input 
 needed from the player.
 
