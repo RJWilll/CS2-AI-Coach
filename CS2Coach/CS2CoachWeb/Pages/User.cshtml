@@ -15,7 +15,10 @@
 
     @foreach (JObject? match in matches)
     {
-        <p>Match Score: @match["score"]</p>
+        <div id="Match">
+            <p>@match["date"] -- Match Score: @match["score"]</p>
+            <a id="Subtext" asp-area="" asp-page="/round">View Rounds</a>
+        </div>
     }
 
 </div>

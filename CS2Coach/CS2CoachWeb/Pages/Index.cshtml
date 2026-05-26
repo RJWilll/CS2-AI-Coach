@@ -10,14 +10,24 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <!--Header-->
+    <h1 id="BigText">Counter-Strike 2 WebCoach</h1> 
 
-    <p>Match Score: @match["score"]</p>
+    <!--Line for search bar-->
+    <form action="/User" method="get">
+        <span id="NormalText">Sign in: </span>
+        <input type="text" name="q" placeholder="Enter Steam ID" aria-label="Search through site content">
+        <button type="submit">Search</button>
+    </form>
 
-    @foreach(JObject round in rounds)
-    {
-        <p>Round Num: @round["round_number"], Current Num of Kills: @round["kills"]</p>
-        <br />
-    }
+    <br />
 
+    <!--Begin your coaching for free!*-->
+    <p id="BigText">Begin your coaching for free!*</p>
+
+
+    <!--About paragraph-->
+    <p id="NormalText">More than a tracker, it watches your gameplay and tells you how to improve. All stats are tracked with a seperate application and all updated here, including all your tips and strategies for improvement.</p>
+
+    <p id="NormalText">*you gotta pay for the api fees with your own gemini api key</p>
 </div>

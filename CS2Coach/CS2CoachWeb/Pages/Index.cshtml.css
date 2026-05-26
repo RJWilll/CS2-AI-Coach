@@ -1,0 +1,12 @@
+﻿body {
+}
+
+#BigText {
+    color: orange;
+    font-size: 300%;
+}
+
+#NormalText
+{
+    font-size: 200%;
+}
