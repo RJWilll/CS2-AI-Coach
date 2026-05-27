@@ -27,12 +27,15 @@ namespace CS2Coach
             this.screenshotRecivever = new ScreenshotRecivever();
             this.apikey = string.Empty; // Set your API key here from UI
             this.reciever = new GSIReciever(string.Empty);
+
             this.reciever.GSIReportUpdated += OnGSIReportUpdated;
             this.reciever.NewMatchStarted += OnNewMatch;
+            this.reciever.OnDeath += OnNewMatch; // For simplicity, we treat death as a new match for now. This can be refined to better suit actual match flow.
+
             this.matchID = DatabaseHandler.GetLastMatchID();
             DatabaseHandler.Initialize();
 
-            //this.Load += Form1_Load;
+            //For transparency, set a unique color as the background and set that color as the transparency key
             this.BackColor = Color.Magenta;
             this.TransparencyKey = Color.Magenta;
         }
@@ -43,10 +46,7 @@ namespace CS2Coach
 
         async void OnGSIReportUpdated(object sender, EventArgs e)
         {
-            if (!screenshotRecivever.isCapture)
-            {
-                return;
-            }
+            //Get GSI report and screenshots, then get AI report and update UI
             string gsiReport = reciever.GSIReport;
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
             string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
@@ -65,11 +65,19 @@ namespace CS2Coach
             }
 
             DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, "N/A");
+
+            //incase need to start capture on new round, can be refined to better suit actual match flow.
+            this.screenshotRecivever.StartCapture();
         }
 
         void OnNewMatch(object sender, EventArgs e)
         {
             matchID = matchID++;
+        }
+
+        void OnDeath(object sender, EventArgs e)
+        {
+            this.screenshotRecivever.EndCapture();
         }
 
         private void button1_Click(object sender, EventArgs e)

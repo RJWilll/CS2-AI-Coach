@@ -1,0 +1,22 @@
+﻿@page
+@model CS2CoachWeb.Pages.RoundModel
+
+@using Newtonsoft.Json.Linq; 
+@using CS2CoachLibrary;
+
+@{
+    List<JObject> rounds = DatabaseHandler.GetMatchRounds(int.Parse(Model.matchID));
+}
+
+<div class="text-center">
+    <h1 class="display-4">Match @Model.matchID</h1>
+
+    @foreach (JObject? round in rounds)
+    {
+        <div id="Round">
+            <p>Round ID = @round["round_number"] , @round["side"] -- To Improve: @round["coaching_bullets"]</p>
+        </div>
+    }
+
+</div>
+

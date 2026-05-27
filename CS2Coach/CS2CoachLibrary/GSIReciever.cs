@@ -10,6 +10,7 @@ namespace CS2CoachLibrary
     {
         public event EventHandler GSIReportUpdated;
         public event EventHandler NewMatchStarted;
+        public event EventHandler OnDeath;
         public GameStateListener gsi;
         public string gsiReport;
         bool buffer = true;
@@ -38,6 +39,8 @@ namespace CS2CoachLibrary
             this.myId = id;
 
             GSIReportUpdated = delegate { };
+            NewMatchStarted = delegate { };
+            OnDeath = delegate { };
 
             if (!gsi.Start())
             {
@@ -51,7 +54,7 @@ namespace CS2CoachLibrary
 
         void OnGameEvent(GameState state) // Pops at every game event, but we only care about round conclusion for now.
         {
-            if((state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over || (state.Player.State.Health <= 0 && state.Player.SteamID == myId)) && buffer) // If round is over
+            if((state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Over) && buffer) // If round is over
             {
                 CreateGSIReport(state);
                 Debug.WriteLine("\n\n" + state);
@@ -69,6 +72,10 @@ namespace CS2CoachLibrary
             }
             this.curRound = state.Map.Round;
 
+            if(state.Player.State.Health <= 0 && state.Player.SteamID == myId)
+            {
+                OnDeath(state, new EventArgs());
+            }
         }
 
         public void CreateGSIReport(GameState state)

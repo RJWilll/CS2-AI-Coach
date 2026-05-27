@@ -178,7 +178,7 @@ namespace CS2CoachLibrary
                 SELECT MAX(id) as max_id FROM matches;
             """;
             var reader = cmd.ExecuteReader();
-            int maxId = 0;
+            int maxId = 2;
             while (reader.Read())
             {
                 if (reader["max_id"] != DBNull.Value)

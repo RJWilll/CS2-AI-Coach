@@ -17,7 +17,7 @@ namespace CS2CoachLibrary
 
         public SteamAPIHandler()
         {
-            factory = new SteamWebInterfaceFactory(""); //NEED TO REMOVE BEFORE PUSHING TO GITHUB
+            factory = new SteamWebInterfaceFactory("15C272435490B35A80887B814B2049A3"); //NEED TO REMOVE BEFORE PUSHING TO GITHUB
         }
 
         public async Task<string> GetNameAsync(string steamId)

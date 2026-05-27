@@ -146,8 +146,11 @@ namespace CS2Coach
 
         public async void StartCapture()
         {
-            isCapture = true;
-            MakeScreenshots();
+            if(!isCapture)
+            {
+                isCapture = true;
+                MakeScreenshots();
+            }
         }
 
         public void EndCapture()
