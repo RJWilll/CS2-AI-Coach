@@ -72,7 +72,7 @@ namespace CS2Coach
 
         void OnNewMatch(object sender, EventArgs e)
         {
-            matchID = matchID++;
+            matchID++;
         }
 
         void OnDeath(object sender, EventArgs e)

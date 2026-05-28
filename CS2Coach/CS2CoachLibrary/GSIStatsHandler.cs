@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CS2CoachLibrary
 {
-    internal static class GSIStatsHandler
+    public static class GSIStatsHandler
     {
         public static float GetMatchWinRate(List<JObject> matches)
         {
@@ -66,5 +66,34 @@ namespace CS2CoachLibrary
             return wins;
         }
 
+        public static int GetTotalKills(List<JObject> matches)
+        {
+            int kills = 0;
+            foreach (JObject item in matches)
+            {
+                kills += int.Parse(DatabaseHandler.GetLastRoundFromMatch(int.Parse(item["id"].ToString()))["kills"].ToString());
+            }
+            return kills;
+        }
+
+        public static int GetTotalAssists(List<JObject> matches)
+        {
+            int assists = 0;
+            foreach (JObject item in matches)
+            {
+                assists += int.Parse(DatabaseHandler.GetLastRoundFromMatch(int.Parse(item["id"].ToString()))["assists"].ToString());
+            }
+            return assists;
+        }
+
+        public static int GetKillsFromOneMatch(JObject match)
+        {
+            return int.Parse(DatabaseHandler.GetLastRoundFromMatch(int.Parse(match["id"].ToString()))["kills"].ToString());
+        }
+
+        public static int GetAssistsFromOneMatch(JObject match)
+        {
+            return int.Parse(DatabaseHandler.GetLastRoundFromMatch(int.Parse(match["id"].ToString()))["assists"].ToString());
+        }
     }
 }

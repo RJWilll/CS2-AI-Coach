@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using CounterStrike2GSI.Nodes;
+using Microsoft.Data.Sqlite;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace CS2CoachLibrary
                     side            TEXT    NOT NULL,    -- 'CT' or 'T'
                     survived        INTEGER NOT NULL,    -- 0 or 1
                     kills           INTEGER NOT NULL,
+                    assists         INTEGER NOT NULL,
                     damage_taken    INTEGER NOT NULL,
                     death_x         REAL,               -- null if survived
                     death_y         REAL,               -- null if survived
@@ -44,6 +46,31 @@ namespace CS2CoachLibrary
                 );
             """;
             cmd.ExecuteNonQuery();
+
+            if(IsTableEmpty("matches") || IsTableEmpty("rounds"))
+            {
+                InsertMatch(1, "123", new DateTime(2024, 1, 1), new Newtonsoft.Json.Linq.JObject
+                {
+                    ["id"] = "1",
+                    ["steam_id"] = "1",
+                    ["date"] = "1",
+                    ["map"] = "1",
+                    ["result"] = "1",
+                    ["score"] = "1"
+                });
+                InsertRound(1, new Newtonsoft.Json.Linq.JObject
+                {
+                    ["round_number"] = "1",
+                    ["side"] = "T",
+                    ["survived"] = "1",
+                    ["kills"] = "0",
+                    ["assists"] = "0",
+                    ["damage_taken"] = "12",
+                    ["death_x"] = "12",
+                    ["death_y"] = "12",
+                    ["weapons"] = "N/A"
+                }, "N/A", "N/A");
+            }
         }
 
         public static void DeleteDatabase()
@@ -79,7 +106,7 @@ namespace CS2CoachLibrary
             cmd.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd HH:mm:ss"));
             cmd.Parameters.AddWithValue("$map", gsiReport["map"].ToString());
             cmd.Parameters.AddWithValue("$result", "N/A");
-            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"].ToString()}, T: {gsiReport["t_score"].ToString()}" );
+            cmd.Parameters.AddWithValue("$score", $"CT: {gsiReport["ct_score"].ToString()}, T: {gsiReport["t_score"].ToString()}");
             cmd.ExecuteNonQuery();
         }
 
@@ -90,14 +117,15 @@ namespace CS2CoachLibrary
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandText = """
-                INSERT INTO rounds (match_id, round_number, side, survived, kills, damage_taken, death_x, death_y, weapons, coaching_bullets, mistake_tags)
-                VALUES ($match_id, $round_number, $side, $survived, $kills, $damage_taken, $death_x, $death_y, $weapons, $coaching_bullets, $mistake_tags);
+                INSERT INTO rounds (match_id, round_number, side, survived, kills, assists, damage_taken, death_x, death_y, weapons, coaching_bullets, mistake_tags)
+                VALUES ($match_id, $round_number, $side, $survived, $kills, $assists, $damage_taken, $death_x, $death_y, $weapons, $coaching_bullets, $mistake_tags);
             """;
             cmd.Parameters.AddWithValue("$match_id", matchId);
             cmd.Parameters.AddWithValue("$round_number", roundData["round_number"].Value<int>());
             cmd.Parameters.AddWithValue("$side", roundData["side"].Value<string>());
             cmd.Parameters.AddWithValue("$survived", roundData["survived"].Value<bool>());
             cmd.Parameters.AddWithValue("$kills", roundData["kills"].Value<int>());
+            cmd.Parameters.AddWithValue("$assists", roundData["assists"].Value<int>());
             cmd.Parameters.AddWithValue("$damage_taken", roundData["damage_taken"].Value<int>());
             if (roundData["survived"].Value<bool>())
             {
@@ -228,11 +256,64 @@ namespace CS2CoachLibrary
                 ["side"] = reader["side"].ToString(),
                 ["survived"] = reader["survived"].ToString(),
                 ["kills"] = reader["kills"].ToString(),
+                ["assists"] = reader["assists"].ToString(),
                 ["damage_taken"] = reader["damage_taken"].ToString(),
                 ["death_x"] = reader["death_x"].ToString(),
                 ["death_y"] = reader["death_y"].ToString(),
                 ["weapons"] = reader["weapons"].ToString()
             };
+        }
+
+        public static JObject GetLastRoundFromMatch(int matchId)
+        {
+            JObject round = null;
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT MAX(round_number) as max_round FROM rounds WHERE match_id = $match_id;
+            """;
+            cmd.Parameters.AddWithValue("$match_id", matchId);
+            var reader = cmd.ExecuteReader();
+            int maxRound = 0;
+            while (reader.Read())
+            {
+                round = ConvertRoundReaderToJSON(reader);
+            }
+            return round;
+        }
+
+        public static bool DoesMatchExist(int matchId)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = """
+                SELECT COUNT(*) as count FROM matches WHERE id = $id;
+            """;
+            cmd.Parameters.AddWithValue("$id", matchId);
+            var reader = cmd.ExecuteReader();
+            int count = 0;
+            while (reader.Read())
+            {
+                count = Convert.ToInt32(reader["count"]);
+            }
+            return count > 0;
+        }
+
+        public static bool IsTableEmpty(string tableName)
+        {
+            using var con = new SqliteConnection(DB_PATH);
+            con.Open();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"SELECT COUNT(*) as count FROM {tableName};";
+            var reader = cmd.ExecuteReader();
+            int count = 0;
+            while (reader.Read())
+            {
+                count = Convert.ToInt32(reader["count"]);
+            }
+            return count == 0;
         }
     }
 }

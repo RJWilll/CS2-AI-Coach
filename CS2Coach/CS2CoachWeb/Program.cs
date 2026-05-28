@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
+using System.Text.Json;
 
 
 var builder = WebApplication.CreateBuilder(args);

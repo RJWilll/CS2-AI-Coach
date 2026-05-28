@@ -15,7 +15,7 @@ namespace CS2CoachLibrary
         public string gsiReport;
         bool buffer = true;
         public string myId = string.Empty;
-        public int curRound = 25;
+        public int curRound;
 
         public string GSIReport
         {
@@ -38,6 +38,8 @@ namespace CS2CoachLibrary
             this.gsiReport = "Empty Report";
             this.myId = id;
 
+            this.curRound = int.Parse(DatabaseHandler.GetLastRoundFromMatch(DatabaseHandler.GetLastMatchID())["round_number"].ToString());
+
             GSIReportUpdated = delegate { };
             NewMatchStarted = delegate { };
             OnDeath = delegate { };
@@ -59,9 +61,10 @@ namespace CS2CoachLibrary
                 CreateGSIReport(state);
                 Debug.WriteLine("\n\n" + state);
                 buffer = false;
+                this.curRound++;
             }
 
-            if(state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Live && state.Player.State.Health > 0 && state.Player.SteamID == myId) // If round just started, reset buffer to allow report to be created at end of round.
+            if (state.Round.Phase == CounterStrike2GSI.Nodes.Phase.Live && state.Player.State.Health > 0 && state.Player.SteamID == myId) // If round just started, reset buffer to allow report to be created at end of round.
             {
                 buffer = true;
             }
@@ -69,8 +72,8 @@ namespace CS2CoachLibrary
             if (state.Map.Round < this.curRound)
             {
                 NewMatchStarted(this.curRound, new EventArgs());
+                this.curRound = state.Map.Round;
             }
-            this.curRound = state.Map.Round;
 
             if(state.Player.State.Health <= 0 && state.Player.SteamID == myId)
             {
@@ -89,6 +92,7 @@ namespace CS2CoachLibrary
                 $"\"t_score\": {state.Map.TStatistics.Score},\n" +
                 $"\"player_money\": {state.Player.State.Money},\n" +
                 $"\"kills\": {state.Player.MatchStats.Kills},\n" +
+                $"\"assists\": {state.Player.MatchStats.Assists},\n" +
                 $"\"player_deaths\": {state.Player.MatchStats.Deaths},\n" +
                 $"\"player_assists\": {state.Player.MatchStats.Assists},\n" +
                 $"\"player_round_kills\": {state.Player.State.RoundKills},\n" +

@@ -7,19 +7,97 @@
 @{
     ViewData["Title"] = "User Page";
     List<JObject?> matches = DatabaseHandler.GetMachesBySteamID(@Model.steamId);
-    //List<JObject> rounds = DatabaseHandler.GetMatchRounds(12);
+
 }
 
 <div class="text-center">
     <h1 class="display-4">User: @Model.name</h1>
 
-    @foreach (JObject? match in matches)
-    {
-        <div id="Match">
-            <p>Match ID = @match["id"] , @match["date"] -- Match Score: @match["score"]</p>
-            <a id="Subtext" asp-area="" asp-page="/round" asp-route-q="@match["id"]">View Rounds</a>
+    <style>
+            .stats-wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
+            .stats-header { font-size: 13px; font-weight: 500; color: #5bb8a8; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+            .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+            .stat-card { background: #111; border: 0.5px solid #2a2a2a; border-radius: 8px; padding: 14px 16px; }
+            .stat-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+            .stat-value { font-size: 22px; font-weight: 500; color: #fff; }
+            .stat-value.highlight { color: #5bb8a8; }
+            .matches-table { width: 100%; border-collapse: collapse; background: #111; border-radius: 8px; overflow: hidden; border: 0.5px solid #2a2a2a; }
+            .matches-table th { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; border-bottom: 0.5px solid #2a2a2a; font-weight: 500; }
+            .matches-table td { font-size: 13px; color: #ccc; padding: 10px 14px; border-bottom: 0.5px solid #1a1a1a; }
+            .matches-table tr:last-child td { border-bottom: none; }
+            .matches-table tr:hover td { background: #181818; }
+            .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+            .badge-win { background: #0f3d2e; color: #5bb8a8; }
+            .badge-loss { background: #3d1515; color: #e27070; }
+    </style>
+    <div class="stats-wrap">
+        <div class="stats-header">Player statistics</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Win rate</div>
+                <div class="stat-value highlight">@GSIStatsHandler.GetMatchWinRate(matches).ToString("P2")</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total kills</div>
+                <div class="stat-value">@GSIStatsHandler.GetTotalKills(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total deaths</div>
+                <div class="stat-value">@GSIStatsHandler.GetTotalDeaths(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total assists</div>
+                <div class="stat-value">@GSIStatsHandler.GetTotalAssists(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg damage / round</div>
+                <div class="stat-value highlight">@GSIStatsHandler.AverageDamageTakenPerRound(matches).ToString("F1")</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Rounds played</div>
+                <div class="stat-value">@GSIStatsHandler.NumberRoundsPlayed(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Matches played</div>
+                <div class="stat-value">@GSIStatsHandler.NumberMatchesPlayed(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Match wins</div>
+                <div class="stat-value highlight">@GSIStatsHandler.TotalMatchWins(matches)</div>
+            </div>
         </div>
-    }
+
+        <div class="stats-header" style="margin-top:1.5rem;">Recent matches</div>
+        <table class="matches-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Map</th>
+                    <th>Result</th>
+                    <th>Score</th>
+                    <th>Kills</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (JObject? match in matches)
+                {
+                    <tr>
+                        <td>@match["id"]</td>
+						<td>@DateTime.Parse(match["date"].ToString()).ToString("yyyy-MM-dd")</td>
+                        <td>@match["map"]</td>
+                        <td><span class="badge badge-win">@match["result"]</span></td>
+                        <td>@match["score"]</td>
+                        <td>@GSIStatsHandler.GetKillsFromOneMatch(match)</td>
+                        <td>@GSIStatsHandler.GetAssistsFromOneMatch(match)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
 
 </div>
 
