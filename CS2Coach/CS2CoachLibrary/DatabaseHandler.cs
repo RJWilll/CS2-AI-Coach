@@ -56,13 +56,16 @@ namespace CS2CoachLibrary
                     ["date"] = "1",
                     ["map"] = "1",
                     ["result"] = "1",
-                    ["score"] = "1"
+                    ["score"] = "1",
+                    ["ct_score"] = "1",
+                    ["t_score"] = "1"
                 });
                 InsertRound(1, new Newtonsoft.Json.Linq.JObject
                 {
+                    ["match_id"] = "1",
                     ["round_number"] = "1",
                     ["side"] = "T",
-                    ["survived"] = "1",
+                    ["survived"] = "True",
                     ["kills"] = "0",
                     ["assists"] = "0",
                     ["damage_taken"] = "12",
@@ -271,11 +274,12 @@ namespace CS2CoachLibrary
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandText = """
-                SELECT MAX(round_number) as max_round FROM rounds WHERE match_id = $match_id;
+                SELECT * FROM rounds WHERE match_id = $match_id 
+                ORDER BY round_number DESC LIMIT 1;
             """;
             cmd.Parameters.AddWithValue("$match_id", matchId);
             var reader = cmd.ExecuteReader();
-            int maxRound = 0;
+            int maxRound = 1;
             while (reader.Read())
             {
                 round = ConvertRoundReaderToJSON(reader);
