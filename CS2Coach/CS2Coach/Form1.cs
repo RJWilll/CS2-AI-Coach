@@ -19,6 +19,7 @@ namespace CS2Coach
         string apikey;
         string steamID;
         int matchID;
+        bool running = false;
 
 
         public CS2Coach()
@@ -46,6 +47,13 @@ namespace CS2Coach
 
         async void OnGSIReportUpdated(object sender, EventArgs e)
         {
+            //exit if not running , this is to prevent processing GSI reports when user has stopped the coach, can be refined to better suit actual match flow.
+            if (!running)
+            {
+                return;
+            }
+
+
             //Get GSI report and screenshots, then get AI report and update UI
             string gsiReport = reciever.GSIReport;
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
@@ -86,12 +94,14 @@ namespace CS2Coach
             this.richTextBox2.Text = "Started coach.";
             this.reciever.myId = steamID = this.textBox2.Text;
             this.apikey = this.textBox1.Text;
+            this.running = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.screenshotRecivever.EndCapture();
             this.richTextBox2.Text = "Stopped coach.";
+            this.running = false;
         }
 
         delegate void SetTextCallback(string text);

@@ -21,26 +21,37 @@ namespace CS2CoachLibrary
             return (float)wins / matches.Count();
         }
 
-        public static int GetTotalDeaths(List<JObject> rounds)
+        public static int GetTotalDeaths(List<JObject> matches)
         {
             int deaths = 0;
 
-            foreach (JObject item in rounds)
+            foreach (JObject item in matches)
             {
-                deaths += int.Parse(item["survived"].ToString());
+                foreach (JObject item2 in DatabaseHandler.GetMatchRounds(int.Parse(item["id"].ToString())))
+                {
+                    if (item2["survived"].ToString() == "false")
+                    {
+                        deaths++;
+                    }
+                }
             }
 
             return deaths;
         }
 
-        public static float AverageDamageTakenPerRound(List<JObject> rounds)
+        public static float AverageDamageTakenPerRound(List<JObject> matches)
         {
             int totalDamage = 0;
-            foreach (JObject item in rounds)
+            int totalRounds = 0;
+            foreach (JObject item in matches)
             {
-                totalDamage += int.Parse(item["damage_taken"].ToString());
+                foreach (JObject item2 in DatabaseHandler.GetMatchRounds(int.Parse(item["id"].ToString())))
+                {
+                    totalDamage += int.Parse(item2["damage_taken"].ToString());
+                    totalRounds++;
+                }
             }
-            return (float)totalDamage / rounds.Count();
+            return (float)totalDamage / totalRounds; 
         }
 
         public static int NumberRoundsPlayed(List<JObject> rounds)

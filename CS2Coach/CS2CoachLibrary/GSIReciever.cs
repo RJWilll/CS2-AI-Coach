@@ -97,7 +97,7 @@ namespace CS2CoachLibrary
                 $"\"player_assists\": {state.Player.MatchStats.Assists},\n" +
                 $"\"player_round_kills\": {state.Player.State.RoundKills},\n" +
                 $"\"damage_taken\": {state.Player.State.RoundTotalDamage},\n" +
-                $"\"survived\": \"{state.Player.State.Health > 0}\",\n" +
+                $"\"survived\": \"{(state.Player.State.Health > 0 ? "true" : "false")}\",\n" +
                 $"\"death_x\": \"{state.Player.Position.X}\",\n" +
                 $"\"death_y\": \"{state.Player.Position.Y}\",\n" +
                 $"\"weapons\": \"{state.Player.Weapons}\",\n" +

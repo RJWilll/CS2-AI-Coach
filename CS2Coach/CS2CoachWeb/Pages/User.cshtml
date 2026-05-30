@@ -83,7 +83,7 @@
             <tbody>
                 @foreach (JObject? match in matches)
                 {
-                    <tr>
+                    <tr onclick="window.location.href='@Url.Page("/round", new { q = match["id"].ToString() })'">
                         <td>@match["id"]</td>
 						<td>@DateTime.Parse(match["date"].ToString()).ToString("yyyy-MM-dd")</td>
                         <td>@match["map"]</td>
