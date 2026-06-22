@@ -59,6 +59,7 @@ namespace CS2Coach
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
             string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
             string mistake_tag = aiReport.Substring(aiReport.LastIndexOf("|") + 1).Trim();
+            aiReport = aiReport.Substring(0, aiReport.LastIndexOf("|")).Trim();
             this.SetText(aiReport);
 
             //Add to database

@@ -134,5 +134,46 @@ namespace CS2CoachLibrary
             }
             return mostFrequentTag;
         }
+
+        public static string GetMostFrequentMistakeTag(List<JObject> matches)
+        {
+            Dictionary<string, int> mistakeTags = new Dictionary<string, int>();
+            foreach (JObject match in matches)
+            {
+                foreach (JObject item in DatabaseHandler.GetMatchRounds(int.Parse(match["id"].ToString())))
+                {
+                    string tag = item["mistake_tag"].ToString();
+                    if (mistakeTags.ContainsKey(tag))
+                    {
+                        mistakeTags[tag]++;
+                    }
+                    else
+                    {
+                        mistakeTags[tag] = 1;
+                    }
+                }
+            }
+            string mostFrequentTag = "N/A";
+            int maxCount = 0;
+            foreach (var pair in mistakeTags)
+            {
+                if (pair.Value > maxCount)
+                {
+                    mostFrequentTag = pair.Key;
+                    maxCount = pair.Value;
+                }
+            }
+            return mostFrequentTag;
+        }
+
+        public static string GetNickname()
+        {
+            List<string> nicknames = new List<string>();
+            nicknames.AddRange("Funniest Player (Compliment)", "Valve's Little Sharpshooter", "The Freakster", "Sloppiest Player", "PlayerSlop", "Involuntary Pacifist", "The Lover", "Knobby Knees", "The Humble CT", "Full of Goop (Sorry)", "The Ship of Theseus of CS", 
+                "Meat Lover's", "Insane Person", "Fart in the Wind", "Don't worry about it", "Soft Hands Guy");
+            Random rand = new Random();
+            return nicknames[(int)rand.NextInt64(0, nicknames.Count() - 1)];
+        }
+
     }
 }

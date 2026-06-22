@@ -130,7 +130,7 @@ namespace CS2CoachLibrary
             cmd.Parameters.AddWithValue("$survived", roundData["survived"].Value<bool>());
             cmd.Parameters.AddWithValue("$kills", roundData["kills"].Value<int>());
             cmd.Parameters.AddWithValue("$assists", roundData["assists"].Value<int>());
-            cmd.Parameters.AddWithValue("$damage_taken", roundData["damage_taken"].Value<int>());
+            cmd.Parameters.AddWithValue("$damage_taken", roundData["damage_taken"].Value<int>() + 1);
             if (roundData["survived"].Value<bool>())
             {
                 cmd.Parameters.AddWithValue("$death_x", DBNull.Value);
@@ -234,7 +234,7 @@ namespace CS2CoachLibrary
             var matches = new List<JObject>();
             while (reader.Read())
             {
-                matches.Add(ConvertMatchReaderToJSON(reader));
+                matches.Insert(0, ConvertMatchReaderToJSON(reader));
             }
             return matches;
         }
@@ -265,6 +265,7 @@ namespace CS2CoachLibrary
                 ["death_x"] = reader["death_x"].ToString(),
                 ["death_y"] = reader["death_y"].ToString(),
                 ["weapons"] = reader["weapons"].ToString(),
+                ["coaching_bullets"] = reader["coaching_bullets"].ToString(),
                 ["mistake_tag"] = reader["mistake_tag"].ToString()
             };
         }

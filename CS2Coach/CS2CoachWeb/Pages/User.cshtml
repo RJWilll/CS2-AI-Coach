@@ -65,6 +65,14 @@
                 <div class="stat-label">Match wins</div>
                 <div class="stat-value highlight">@GSIStatsHandler.TotalMatchWins(matches)</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-label">Frequent Weakness</div>
+                <div class="stat-value highlight">@GSIStatsHandler.GetMostFrequentMistakeTag(matches)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Nickname</div>
+                <div class="stat-value highlight">@GSIStatsHandler.GetNickname()</div>
+            </div>
         </div>
 
         <div class="stats-header" style="margin-top:1.5rem;">Recent matches</div>

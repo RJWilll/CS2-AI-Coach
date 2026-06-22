@@ -1,12 +1,12 @@
 ﻿@page
 @model CS2CoachWeb.Pages.RoundModel
 
-@using Newtonsoft.Json.Linq; 
+@using Newtonsoft.Json.Linq;
 @using CS2CoachLibrary;
 
 @{
     List<JObject> rounds = DatabaseHandler.GetMatchRounds(int.Parse(Model.matchID));
-	JObject match = DatabaseHandler.GetMatch(int.Parse(Model.matchID));
+    JObject match = DatabaseHandler.GetMatch(int.Parse(Model.matchID));
 }
 
 <div class="text-center">
@@ -89,9 +89,13 @@
                     border-bottom: none;
                 }
 
-                .matches-table tr:hover td {
-                    background: #181818;
+                .matches-table tr.round-row {
+                    cursor: pointer;
                 }
+
+                    .matches-table tr.round-row:hover td {
+                        background: #181818;
+                    }
 
             .badge {
                 display: inline-block;
@@ -109,6 +113,69 @@
             .badge-loss {
                 background: #3d1515;
                 color: #e27070;
+            }
+
+            .chevron {
+                display: inline-block;
+                margin-right: 8px;
+                transition: transform 0.15s ease;
+                color: #5bb8a8;
+                font-size: 11px;
+            }
+
+                .chevron.open {
+                    transform: rotate(90deg);
+                }
+
+            .detail-row td {
+                background: #0c0c0c;
+                padding: 0;
+                border-bottom: 0.5px solid #1a1a1a;
+            }
+
+            .detail-row.hidden {
+                display: none;
+            }
+
+            .detail-content {
+                padding: 14px 20px 16px 38px;
+                text-align: left;
+            }
+
+            .detail-label {
+                font-size: 11px;
+                color: #888;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                margin-bottom: 8px;
+            }
+
+            .ai-bullets {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .ai-bullets li {
+                    font-size: 13px;
+                    line-height: 1.6;
+                    color: #ddd;
+                    padding: 4px 0 4px 16px;
+                    position: relative;
+                }
+
+                    .ai-bullets li::before {
+                        content: '›';
+                        position: absolute;
+                        left: 0;
+                        color: #5bb8a8;
+                        font-weight: 500;
+                    }
+
+            .no-bullets {
+                font-size: 13px;
+                color: #666;
+                font-style: italic;
             }
     </style>
 
@@ -128,16 +195,16 @@
             </tr>
         </thead>
         <tbody>
-                <tr onclick="window.location.href='@Url.Page("/round", new { q = match["id"].ToString() })'">
-                    <td>@match["id"]</td>
-                    <td>@DateTime.Parse(match["date"].ToString()).ToString("yyyy-MM-dd")</td>
-                    <td>@match["map"]</td>
-                    <td><span class="badge badge-win">@match["result"]</span></td>
-                    <td>@match["score"]</td>
-                    <td>@GSIStatsHandler.GetKillsFromOneMatch(match)</td>
-                    <td>@GSIStatsHandler.GetAssistsFromOneMatch(match)</td>
-                    <td>@GSIStatsHandler.GetMatchMostFrequentMistakeTag(match)</td>
-                </tr>
+            <tr onclick="window.location.href='@Url.Page("/round", new { q = match["id"].ToString() })'">
+                <td>@match["id"]</td>
+                <td>@DateTime.Parse(match["date"].ToString()).ToString("yyyy-MM-dd")</td>
+                <td>@match["map"]</td>
+                <td><span class="badge badge-win">@match["result"]</span></td>
+                <td>@match["score"]</td>
+                <td>@GSIStatsHandler.GetKillsFromOneMatch(match)</td>
+                <td>@GSIStatsHandler.GetAssistsFromOneMatch(match)</td>
+                <td>@GSIStatsHandler.GetMatchMostFrequentMistakeTag(match)</td>
+            </tr>
         </tbody>
     </table>
 
@@ -156,13 +223,33 @@
         <tbody>
             @foreach (JObject? round in rounds)
             {
-                <tr>
-                    <td>@round["round_number"]</td>
+                var roundId = round["id"]?.ToString() ?? round["round_number"]?.ToString();
+                string bulletList = round["coaching_bullets"]?.ToString() ?? string.Empty;
+
+                <tr class="round-row" onclick="toggleRound('round-@roundId')">
+                    <td><span class="chevron" id="chevron-round-@roundId">▸</span>@round["round_number"]</td>
                     <td>@round["side"]</td>
                     <td>@round["kills"]</td>
                     <td>@round["assists"]</td>
                     <td>@round["damage_taken"]</td>
                     <td>@round["mistake_tag"]</td>
+                </tr>
+                <tr class="detail-row hidden" id="round-@roundId">
+                    <td colspan="6">
+                        <div class="detail-content">
+                            <div class="detail-label">AI Coaching Points</div>
+                            @if (bulletList.Length > 0)
+                            {
+                                <ul class="ai-bullets">
+                                    @bulletList.Replace('*', ' ')
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="no-bullets">No coaching points recorded for this round.</span>
+                            }
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -170,3 +257,15 @@
 
 </div>
 
+<script>
+    function toggleRound(rowId) {
+        const row = document.getElementById(rowId);
+        const chevron = document.getElementById('chevron-' + rowId);
+        if (!row) return;
+
+        const isHidden = row.classList.contains('hidden');
+        row.classList.toggle('hidden');
+        chevron.classList.toggle('open');
+        chevron.textContent = isHidden ? '▾' : '▸';
+    }
+</script>
