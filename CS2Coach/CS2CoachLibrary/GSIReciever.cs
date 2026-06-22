@@ -103,6 +103,7 @@ namespace CS2CoachLibrary
                 $"\"weapons\": \"{state.Player.Weapons}\",\n" +
                 $"\"ct_consecutive_losses\": {state.Map.CTStatistics.ConsecutiveRoundLosses},\n" +
                 $"\"t_consecutive_losses\": {state.Map.TStatistics.ConsecutiveRoundLosses},\n" +
+                $"\"mistake_tag\": \"\"\n" +
                 $"}}";
         }
 

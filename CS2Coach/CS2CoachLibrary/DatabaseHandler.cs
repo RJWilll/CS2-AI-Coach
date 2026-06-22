@@ -41,13 +41,14 @@ namespace CS2CoachLibrary
                     death_y         REAL,               -- null if survived
                     weapons          TEXT,
                     coaching_bullets TEXT,              -- JSON array of strings
-                    mistake_tags    TEXT,               -- JSON array e.g. ["positioning","peeking"]
+                    mistake_tag    TEXT,               -- JSON array e.g. ["positioning","peeking"]
                     FOREIGN KEY (match_id) REFERENCES matches(id)
                 );
             """;
             cmd.ExecuteNonQuery();
 
-            if(IsTableEmpty("matches") || IsTableEmpty("rounds"))
+            //temp data for testing, will be removed later
+            if (IsTableEmpty("matches") || IsTableEmpty("rounds"))
             {
                 InsertMatch(1, "123", new DateTime(2024, 1, 1), new Newtonsoft.Json.Linq.JObject
                 {
@@ -63,7 +64,7 @@ namespace CS2CoachLibrary
                 InsertRound(1, new Newtonsoft.Json.Linq.JObject
                 {
                     ["match_id"] = "1",
-                    ["round_number"] = "1",
+                    ["round_number"] = "-1",
                     ["side"] = "T",
                     ["survived"] = "True",
                     ["kills"] = "0",
@@ -114,14 +115,14 @@ namespace CS2CoachLibrary
         }
 
 
-        public static void InsertRound(int matchId, JObject roundData, string coachingBulletsJson, string mistakeTagsJson)
+        public static void InsertRound(int matchId, JObject roundData, string coachingBulletsJson, string mistakeTag)
         {
             using var con = new SqliteConnection(DB_PATH);
             con.Open();
             var cmd = con.CreateCommand();
             cmd.CommandText = """
-                INSERT INTO rounds (match_id, round_number, side, survived, kills, assists, damage_taken, death_x, death_y, weapons, coaching_bullets, mistake_tags)
-                VALUES ($match_id, $round_number, $side, $survived, $kills, $assists, $damage_taken, $death_x, $death_y, $weapons, $coaching_bullets, $mistake_tags);
+                INSERT INTO rounds (match_id, round_number, side, survived, kills, assists, damage_taken, death_x, death_y, weapons, coaching_bullets, mistake_tag)
+                VALUES ($match_id, $round_number, $side, $survived, $kills, $assists, $damage_taken, $death_x, $death_y, $weapons, $coaching_bullets, $mistake_tag);
             """;
             cmd.Parameters.AddWithValue("$match_id", matchId);
             cmd.Parameters.AddWithValue("$round_number", roundData["round_number"].Value<int>());
@@ -142,7 +143,7 @@ namespace CS2CoachLibrary
             }
             cmd.Parameters.AddWithValue("$weapons", roundData["weapons"].Value<string>());
             cmd.Parameters.AddWithValue("$coaching_bullets", coachingBulletsJson);
-            cmd.Parameters.AddWithValue("$mistake_tags", mistakeTagsJson);
+            cmd.Parameters.AddWithValue("$mistake_tag", mistakeTag);
             cmd.ExecuteNonQuery();
         }
 
@@ -263,7 +264,8 @@ namespace CS2CoachLibrary
                 ["damage_taken"] = reader["damage_taken"].ToString(),
                 ["death_x"] = reader["death_x"].ToString(),
                 ["death_y"] = reader["death_y"].ToString(),
-                ["weapons"] = reader["weapons"].ToString()
+                ["weapons"] = reader["weapons"].ToString(),
+                ["mistake_tag"] = reader["mistake_tag"].ToString()
             };
         }
 

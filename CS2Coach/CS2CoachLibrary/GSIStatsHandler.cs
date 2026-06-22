@@ -106,5 +106,33 @@ namespace CS2CoachLibrary
         {
             return int.Parse(DatabaseHandler.GetLastRoundFromMatch(int.Parse(match["id"].ToString()))["assists"].ToString());
         }
+
+        public static string GetMatchMostFrequentMistakeTag(JObject match)
+        {
+            Dictionary<string, int> mistakeTags = new Dictionary<string, int>();
+            foreach (JObject item in DatabaseHandler.GetMatchRounds(int.Parse(match["id"].ToString())))
+            {
+                string tag = item["mistake_tag"].ToString();
+                if (mistakeTags.ContainsKey(tag))
+                {
+                    mistakeTags[tag]++;
+                }
+                else
+                {
+                    mistakeTags[tag] = 1;
+                }
+            }
+            string mostFrequentTag = "N/A";
+            int maxCount = 0;
+            foreach (var pair in mistakeTags)
+            {
+                if (pair.Value > maxCount)
+                {
+                    mostFrequentTag = pair.Key;
+                    maxCount = pair.Value;
+                }
+            }
+            return mostFrequentTag;
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace CS2Coach
             string gsiReport = reciever.GSIReport;
             List<Mat> screenshots = this.screenshotRecivever.GetImages();
             string aiReport = await GeminiHandler.GetAIReport(gsiReport, screenshots, apikey);
+            string mistake_tag = aiReport.Substring(aiReport.LastIndexOf("|") + 1).Trim();
             this.SetText(aiReport);
 
             //Add to database
@@ -66,13 +67,14 @@ namespace CS2Coach
             if (DatabaseHandler.GetMatch(matchID).Count == 0)
             {
                 DatabaseHandler.InsertMatch(matchID, steamID, DateTime.Now, jsiReport);
+                Debug.WriteLine("INSERTed");
             }
             else
             {
                 DatabaseHandler.UpdateMatchResult(matchID, jsiReport);
             }
 
-            DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, "N/A");
+            DatabaseHandler.InsertRound(matchID, jsiReport, aiReport, mistake_tag);
 
             //incase need to start capture on new round, can be refined to better suit actual match flow.
             this.screenshotRecivever.StartCapture();
