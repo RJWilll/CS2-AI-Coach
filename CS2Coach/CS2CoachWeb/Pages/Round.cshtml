@@ -6,17 +6,167 @@
 
 @{
     List<JObject> rounds = DatabaseHandler.GetMatchRounds(int.Parse(Model.matchID));
+	JObject match = DatabaseHandler.GetMatch(int.Parse(Model.matchID));
 }
 
 <div class="text-center">
     <h1 class="display-4">Match @Model.matchID</h1>
+    <style>
+            .stats-wrap {
+                padding: 1.5rem 0;
+                font-family: var(--font-sans);
+            }
 
-    @foreach (JObject? round in rounds)
-    {
-        <div id="Round">
-            <p>Round ID = @round["round_number"] , @round["side"] -- To Improve: @round["coaching_bullets"]</p>
-        </div>
-    }
+            .stats-header {
+                font-size: 13px;
+                font-weight: 500;
+                color: #5bb8a8;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
+                margin-bottom: 1.5rem;
+            }
+
+            .stat-card {
+                background: #111;
+                border: 0.5px solid #2a2a2a;
+                border-radius: 8px;
+                padding: 14px 16px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+                color: #888;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                margin-bottom: 6px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+                font-weight: 500;
+                color: #fff;
+            }
+
+                .stat-value.highlight {
+                    color: #5bb8a8;
+                }
+
+            .matches-table {
+                width: 100%;
+                border-collapse: collapse;
+                background: #111;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 0.5px solid #2a2a2a;
+            }
+
+                .matches-table th {
+                    font-size: 11px;
+                    color: #888;
+                    text-transform: uppercase;
+                    letter-spacing: 0.06em;
+                    padding: 10px 14px;
+                    text-align: left;
+                    border-bottom: 0.5px solid #2a2a2a;
+                    font-weight: 500;
+                }
+
+                .matches-table td {
+                    font-size: 13px;
+                    color: #ccc;
+                    padding: 10px 14px;
+                    border-bottom: 0.5px solid #1a1a1a;
+                }
+
+                .matches-table tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .matches-table tr:hover td {
+                    background: #181818;
+                }
+
+            .badge {
+                display: inline-block;
+                font-size: 11px;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-weight: 500;
+            }
+
+            .badge-win {
+                background: #0f3d2e;
+                color: #5bb8a8;
+            }
+
+            .badge-loss {
+                background: #3d1515;
+                color: #e27070;
+            }
+    </style>
+
+
+    <div class="stats-header" style="margin-top:1.5rem;">This Match</div>
+    <table class="matches-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Map</th>
+                <th>Result</th>
+                <th>Score</th>
+                <th>Kills</th>
+                <th>Assists</th>
+                <th>Main Match Mistake</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr onclick="window.location.href='@Url.Page("/round", new { q = match["id"].ToString() })'">
+                    <td>@match["id"]</td>
+                    <td>@DateTime.Parse(match["date"].ToString()).ToString("yyyy-MM-dd")</td>
+                    <td>@match["map"]</td>
+                    <td><span class="badge badge-win">@match["result"]</span></td>
+                    <td>@match["score"]</td>
+                    <td>@GSIStatsHandler.GetKillsFromOneMatch(match)</td>
+                    <td>@GSIStatsHandler.GetAssistsFromOneMatch(match)</td>
+                    <td>@GSIStatsHandler.GetMatchMostFrequentMistakeTag(match)</td>
+                </tr>
+        </tbody>
+    </table>
+
+    <div class="stats-header" style="margin-top:1.5rem;">Match Rounds</div>
+    <table class="matches-table">
+        <thead>
+            <tr>
+                <th>Round Number</th>
+                <th>Side</th>
+                <th>Kills</th>
+                <th>Assists</th>
+                <th>Damage Taken</th>
+                <th>Mistake Tag</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JObject? round in rounds)
+            {
+                <tr>
+                    <td>@round["round_number"]</td>
+                    <td>@round["side"]</td>
+                    <td>@round["kills"]</td>
+                    <td>@round["assists"]</td>
+                    <td>@round["damage_taken"]</td>
+                    <td>@round["mistake_tag"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </div>
 
