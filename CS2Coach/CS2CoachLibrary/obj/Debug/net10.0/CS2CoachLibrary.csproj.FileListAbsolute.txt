@@ -1,0 +1,13 @@
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\bin\Debug\net10.0\CS2CoachLibrary.deps.json
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\bin\Debug\net10.0\CS2CoachLibrary.dll
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\bin\Debug\net10.0\CS2CoachLibrary.pdb
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.csproj.AssemblyReference.cache
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.AssemblyInfoInputs.cache
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.AssemblyInfo.cs
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.csproj.CoreCompileInputs.cache
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.sourcelink.json
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.dll
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\refint\CS2CoachLibrary.dll
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\CS2CoachLibrary.pdb
+C:\Users\reedj\random_github_repos\CS2-AI-Coach\CS2Coach\CS2CoachLibrary\obj\Debug\net10.0\ref\CS2CoachLibrary.dll

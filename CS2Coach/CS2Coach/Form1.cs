@@ -2,15 +2,16 @@ namespace CS2Coach
 {
     using CounterStrike2GSI;
     using CounterStrike2GSI.EventMessages;
+    using CS2CoachLibrary;
     using Google.GenAI;
     using Microsoft.Web.WebView2.Core;
+    using Newtonsoft.Json.Linq;
     using OpenCvSharp;
     using System;
     using System.Diagnostics;
+    using System.Drawing.Drawing2D;
     using System.IO;
     using System.Windows.Forms;
-    using CS2CoachLibrary;
-    using Newtonsoft.Json.Linq;
 
     public partial class CS2Coach : Form
     {
@@ -93,18 +94,10 @@ namespace CS2Coach
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.screenshotRecivever.StartCapture();
-            this.richTextBox2.Text = "Started coach.";
-            this.reciever.myId = steamID = this.textBox2.Text;
-            this.apikey = this.textBox1.Text;
-            this.running = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.screenshotRecivever.EndCapture();
-            this.richTextBox2.Text = "Stopped coach.";
-            this.running = false;
         }
 
         delegate void SetTextCallback(string text);
@@ -119,6 +112,22 @@ namespace CS2Coach
             else
             {
                 this.richTextBox1.Text = text;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked)
+            {
+                this.screenshotRecivever.StartCapture();
+                this.reciever.myId = steamID = this.textBox2.Text;
+                this.apikey = this.textBox1.Text;
+                this.running = true;
+            }
+            else
+            {
+                this.screenshotRecivever.EndCapture();
+                this.running = false;
             }
         }
     }
